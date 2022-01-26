@@ -114,6 +114,12 @@ export function toSeion(letter: string): string {
     return "へ";
   } else if ("ぼぽ".includes(letter)) {
     return "ほ";
+  } else if ("ゃ".includes(letter)) {
+    return "や";
+  } else if ("ゅ".includes(letter)) {
+    return "ゆ";
+  } else if ("ょ".includes(letter)) {
+    return "よ";
   } else if ("ゎ".includes(letter)) {
     return "わ";
   } else {
