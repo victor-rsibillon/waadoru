@@ -114,6 +114,60 @@ table.Game-rows > tbody {
   color: white !important;
 }
 
+.letter-almost {
+  border: 2px dotted rgba(0, 0, 0, 0.3);
+  background-color: #aa57ab;
+  color: white !important;
+}
+
+.letter-correct-consonant-and-elsewhere {
+  border: 2px dotted rgba(0, 0, 0, 0.3);
+  background: linear-gradient(
+    135deg,
+    rgb(87, 172, 120) 0%,
+    rgb(87, 172, 120) 50%,
+    #e9c601 50%,
+    #e9c601 100%
+  );
+  color: white !important;
+}
+
+.letter-correct-vowel-and-elsewhere {
+  border: 2px dotted rgba(0, 0, 0, 0.3);
+  background: linear-gradient(
+    135deg,
+    #e9c601 0%,
+    #e9c601 50%,
+    rgb(87, 172, 120) 50%,
+    rgb(87, 172, 120) 100%
+  );
+  color: white !important;
+}
+
+.letter-correct-consonant {
+  border: 2px solid rgb(87, 172, 120);
+  background: linear-gradient(
+    135deg,
+    rgb(87, 172, 120) 0%,
+    rgb(87, 172, 120) 50%,
+    rgb(162, 162, 162) 50%,
+    rgb(162, 162, 162) 100%
+  );
+  color: white !important;
+}
+
+.letter-correct-vowel {
+  border: 2px solid rgb(87, 172, 120);
+  background: linear-gradient(
+    135deg,
+    rgb(162, 162, 162) 0%,
+    rgb(162, 162, 162) 50%,
+    rgb(87, 172, 120) 50%,
+    rgb(87, 172, 120) 100%
+  );
+  color: white !important;
+}
+
 .letter-elsewhere {
   border: 2px dotted rgba(0, 0, 0, 0.3);
   background-color: #e9c601;
@@ -181,9 +235,44 @@ a:active {
   background-color: rgb(87, 172, 120);
 }
 
+.App-about b.purple-bg {
+  background-color: #aa57ab;
+}
+
+.App-about b.gray-green-bg {
+  background: linear-gradient(
+    135deg,
+    #888 0%,
+    #888 50%,
+    rgb(87, 172, 120) 50%,
+    rgb(87, 172, 120) 100%
+  );
+}
+
 .App-about b.yellow-bg {
   background-color: #e9c601;
 }
+
+.App-about b.green-gray-bg {
+  background: linear-gradient(
+    135deg,
+    rgb(87, 172, 120) 0%,
+    rgb(87, 172, 120) 50%,
+    #888 50%,
+    #888 100%
+  );
+}
+
+.App-about b.green-yellow-bg {
+  background: linear-gradient(
+    135deg,
+    rgb(87, 172, 120) 0%,
+    rgb(87, 172, 120) 50%,
+    #e9c601 50%,
+    #e9c601 100%
+  );
+}
+
 
 .Game-seed-info {
   opacity: 0.5;
@@ -217,7 +306,7 @@ a:active {
   height: 18px;
 }
 
-.Settings-setting input[type=range] {
+.Settings-setting input[type="range"] {
   width: 50px;
   height: 18px;
 }

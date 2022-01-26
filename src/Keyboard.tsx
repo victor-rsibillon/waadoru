@@ -7,9 +7,12 @@ interface KeyboardProps {
 
 export function Keyboard(props: KeyboardProps) {
   const keyboard = [
-    "q w e r t y u i o p".split(" "),
-    "a s d f g h j k l".split(" "),
-    "Backspace z x c v b n m Enter".split(" "),
+    "わ ら や ま は な た さ か あ".split(" "),
+    "ゐ り 　 み ひ に ち し き い".split(" "),
+    "　 る ゆ む ふ ぬ つ す く う".split(" "),
+    "ゑ れ 　 め へ ね て せ け え".split(" "),
+    "を ろ よ も ほ の と そ こ お".split(" "),
+    "ん ゛ ゜ 大/小 長音 Backspace 確定".split(" "),
   ];
 
   return (

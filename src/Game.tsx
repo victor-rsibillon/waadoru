@@ -7,13 +7,18 @@ import targetList from "./targets.json";
 import {
   dictionarySet,
   Difficulty,
+  isKogaki,
+  isVoiced,
   pick,
   resetRng,
   seed,
   speak,
+  toKogaki,
+  toSeion,
   urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
+import { toHiragana, toKatakana } from "wanakana";
 
 enum GameState {
   Playing,
@@ -27,9 +32,11 @@ interface GameProps {
   difficulty: Difficulty;
 }
 
-const targets = targetList.slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
-const minWordLength = 4;
-const maxWordLength = 11;
+const targets = targetList
+  .map((word) => toHiragana(word))
+  //.filter((word) => dictionary.includes(word)); // .slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
+const minWordLength = 3;
+const maxWordLength = 10;
 
 function randomTarget(wordLength: number): string {
   const eligible = targets.filter((word) => word.length === wordLength);
@@ -69,7 +76,7 @@ function Game(props: GameProps) {
   const [hint, setHint] = useState<string>(
     challengeError
       ? `Invalid challenge string, playing random game.`
-      : `Make your first guess!`
+      : `あなたの推測を入力してください！`
   );
   const [challenge, setChallenge] = useState<string>(initChallenge);
   const [wordLength, setWordLength] = useState(
@@ -129,22 +136,59 @@ function Game(props: GameProps) {
       return;
     }
     if (guesses.length === props.maxGuesses) return;
-    if (/^[a-z]$/i.test(key)) {
-      setCurrentGuess((guess) =>
-        (guess + key.toLowerCase()).slice(0, wordLength)
-      );
+    if (key === "大/小") {
+      key = toKogaki(key);
+    }
+    if (/^[a-zあ-ん]$/i.test(key)) {
+      setCurrentGuess((guess) => {
+        const newGuess = guess + key.toLowerCase();
+        return (
+          !/n$/i.test(guess) && key.toLowerCase() === "n"
+            ? newGuess
+            : toHiragana(newGuess.replace("nn", "n"))
+        ).slice(0, wordLength);
+      });
       tableRef.current?.focus();
+      setHint("");
+    } else if (key === "゛") {
+      const letter = currentGuess.slice(-1);
+      const mark = "\u{3099}";
+      const key = isVoiced(letter)
+        ? toSeion(letter)
+        : (toSeion(letter) + mark).normalize().replace(mark, "");
+      setCurrentGuess((guess) =>
+        (guess.slice(0, -1) + key).slice(0, wordLength)
+      );
+    } else if (key === "゜") {
+      const letter = currentGuess.slice(-1);
+      const mark = "\u{309A}";
+      const key = isVoiced(letter)
+        ? toSeion(letter)
+        : (toSeion(letter) + mark).normalize().replace(mark, "");
+      setCurrentGuess((guess) => (guess + key).normalize().replace(key, ""));
+      setCurrentGuess((guess) =>
+        (guess.slice(0, -1) + key).slice(0, wordLength)
+      );
+    } else if (key === "大/小") {
+      const letter = currentGuess.slice(-1);
+      const key = isKogaki(letter) ? toSeion(letter) : toKogaki(letter);
+      setCurrentGuess((guess) =>
+        (guess.slice(0, -1) + key).slice(0, wordLength)
+      );
+      setHint("");
+    } else if (key === "長音" || key === "-") {
+      setCurrentGuess((guess) => (guess + "ー").slice(0, wordLength));
       setHint("");
     } else if (key === "Backspace") {
       setCurrentGuess((guess) => guess.slice(0, -1));
       setHint("");
-    } else if (key === "Enter") {
+    } else if (key === "確定" || key === "Enter") {
       if (currentGuess.length !== wordLength) {
-        setHint("Too short");
+        setHint("短すぎます");
         return;
       }
-      if (!dictionary.includes(currentGuess)) {
-        setHint("Not a valid word");
+      if (!dictionary.includes(toKatakana(currentGuess))) {
+        setHint("有効な単語ではありません");
         return;
       }
       for (const g of guesses) {
@@ -159,15 +203,15 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) => "");
 
       const gameOver = (verbed: string) =>
-        `You ${verbed}! The answer was ${target.toUpperCase()}. (Enter to ${
-          challenge ? "play a random game" : "play again"
+        `あなたの${verbed}！正解は「${target.toUpperCase()}」です。（確定を押して${
+          challenge ? "ランダムな単語で遊ぶ" : "再び遊ぶ"
         })`;
 
       if (currentGuess === target) {
-        setHint(gameOver("won"));
+        setHint(gameOver("勝ち"));
         setGameState(GameState.Won);
       } else if (guesses.length + 1 === props.maxGuesses) {
-        setHint(gameOver("lost"));
+        setHint(gameOver("負け"));
         setGameState(GameState.Lost);
       } else {
         setHint("");
@@ -226,7 +270,7 @@ function Game(props: GameProps) {
   return (
     <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
       <div className="Game-options">
-        <label htmlFor="wordLength">Letters:</label>
+        <label htmlFor="wordLength">単語の文字数：</label>
         <input
           type="range"
           min={minWordLength}
@@ -246,7 +290,7 @@ function Game(props: GameProps) {
             setCurrentGuess("");
             setTarget(randomTarget(length));
             setWordLength(length);
-            setHint(`${length} letters`);
+            setHint(`${length} 文字`);
           }}
         ></input>
         <button
@@ -254,13 +298,13 @@ function Game(props: GameProps) {
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
             setHint(
-              `The answer was ${target.toUpperCase()}. (Enter to play again)`
+              `答えは「${target.toUpperCase()}」でした。（エンターを押して再チャレンジ）`
             );
             setGameState(GameState.Lost);
             (document.activeElement as HTMLElement)?.blur();
           }}
         >
-          Give up
+          諦める
         </button>
       </div>
       <table
@@ -287,28 +331,30 @@ function Game(props: GameProps) {
             onClick={() => {
               share(
                 getChallengeUrl(target),
-                "Challenge link copied to clipboard!"
+                "共有リンクをクリップボードにコピーしました！"
               );
             }}
           >
-            Challenge a friend to this word
+            この単語を友達にチャレンジさせる
           </button>{" "}
           <button
             onClick={() => {
               share(
                 getChallengeUrl(target),
-                "Result copied to clipboard!",
+                "結果をクリップボードにコピーしました！",
                 guesses
                   .map((guess) =>
                     clue(guess, target)
-                      .map((c) => ["⬛", "🟨", "🟩"][c.clue ?? 0])
+                      .map(
+                        (c) => ["⬛", "🟨", "🟥", "🟦", "🔴", "🔵", "🟪", "🟩"][c.clue ?? 0]
+                      )
                       .join("")
                   )
                   .join("\n")
               );
             }}
           >
-            Share emoji results
+            絵文字で結果をシェアする
           </button>
         </p>
       )}

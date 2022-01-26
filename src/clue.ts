@@ -1,8 +1,13 @@
-import { Difficulty, englishNumbers, ordinal } from "./util";
+import { Difficulty, englishNumbers, ordinal, toConsonant, toSeion, toVowel } from "./util";
 
 export enum Clue {
   Absent,
   Elsewhere,
+  CorrectVowel,
+  CorrectConsonant,
+  CorrectVowelAndElsewhere,
+  CorrectConsonantAndElsewhere,
+  Almost,
   Correct,
 }
 
@@ -10,6 +15,7 @@ export interface CluedLetter {
   clue?: Clue;
   letter: string;
 }
+
 
 export function clue(word: string, target: string): CluedLetter[] {
   let elusive: string[] = [];
@@ -22,6 +28,20 @@ export function clue(word: string, target: string): CluedLetter[] {
     let j: number;
     if (target[i] === letter) {
       return { clue: Clue.Correct, letter };
+    } else if (toSeion(target[i]) === toSeion(letter)) {
+      return { clue: Clue.Almost, letter };
+    } else if (toConsonant(target[i]) === toConsonant(letter) && (j = elusive.indexOf(letter)) > -1) {
+      // "use it up" so we don't clue at it twice
+      elusive[j] = "";
+      return { clue: Clue.CorrectConsonantAndElsewhere, letter };
+    } else if (toVowel(target[i]) === toVowel(letter) && (j = elusive.indexOf(letter)) > -1) {
+      // "use it up" so we don't clue at it twice
+      elusive[j] = "";
+      return { clue: Clue.CorrectVowelAndElsewhere, letter };
+    } else if (toConsonant(target[i]) === toConsonant(letter)) {
+      return { clue: Clue.CorrectConsonant, letter };
+    } else if (toVowel(target[i]) === toVowel(letter)) {
+      return { clue: Clue.CorrectVowel, letter };
     } else if ((j = elusive.indexOf(letter)) > -1) {
       // "use it up" so we don't clue at it twice
       elusive[j] = "";
@@ -37,6 +57,16 @@ export function clueClass(clue: Clue): string {
     return "letter-absent";
   } else if (clue === Clue.Elsewhere) {
     return "letter-elsewhere";
+  } else if (clue === Clue.CorrectVowel) {
+    return "letter-correct-vowel";
+  } else if (clue === Clue.CorrectConsonant) {
+    return "letter-correct-consonant";
+  } else if (clue === Clue.CorrectVowelAndElsewhere) {
+    return "letter-correct-vowel-and-elsewhere";
+  } else if (clue === Clue.CorrectConsonantAndElsewhere) {
+    return "letter-correct-consonant-and-elsewhere";
+  } else if (clue === Clue.Almost) {
+    return "letter-almost";
   } else {
     return "letter-correct";
   }
@@ -44,11 +74,21 @@ export function clueClass(clue: Clue): string {
 
 export function clueWord(clue: Clue): string {
   if (clue === Clue.Absent) {
-    return "no";
+    return "不在";
   } else if (clue === Clue.Elsewhere) {
-    return "elsewhere";
+    return "場所違い";
+  } else if (clue === Clue.CorrectVowel) {
+    return "母音一致";
+  } else if (clue === Clue.CorrectConsonant) {
+    return "子音一致";
+  } else if (clue === Clue.CorrectVowelAndElsewhere) {
+    return "場所違い＆母音一致";
+  } else if (clue === Clue.CorrectConsonantAndElsewhere) {
+    return "場所違い＆子音一致";
+  } else if (clue === Clue.Almost) {
+    return "濁点・半濁点・小書き";
   } else {
-    return "correct";
+    return "正解";
   }
 }
 

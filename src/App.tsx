@@ -58,23 +58,40 @@ function App() {
   return (
     <div className="App-container">
       <h1>
-        <span
-          style={{
-            color: difficulty > 0 ? "#e66" : "inherit",
-            fontStyle: difficulty > 1 ? "italic" : "inherit",
-          }}
-        >
-          hell
-        </span>
-        o wordl
+        {difficulty === 0 ? (
+          "わーどる"
+        ) : difficulty === 1 ? (
+          <>
+            <span
+              style={{
+                color: "#e66"
+              }}
+            >
+              はーど
+            </span>
+            る
+          </>
+        ) : (
+          <>
+            <span
+              style={{
+                color: "#e66" ,
+                fontStyle: "italic",
+              }}
+            >
+              超はーど
+            </span>
+            る
+          </>
+        )}
       </h1>
       <div className="top-right">
         {page !== "game" ? (
-          link("❌", "Close", "game")
+          link("❌", "閉じる", "game")
         ) : (
           <>
-            {link("❓", "About", "about")}
-            {link("⚙️", "Settings", "settings")}
+            {link("❓", "遊び方", "about")}
+            {link("⚙️", "設定", "settings")}
           </>
         )}
       </div>
@@ -95,7 +112,7 @@ function App() {
                 new Date().toISOString().replace(/-/g, "").slice(0, 8))
           }
         >
-          {seed ? "Random" : "Today's"}
+          {seed ? "ランダム" : "今日のお題"}
         </a>
       </div>
       {page === "about" && <About />}
@@ -108,7 +125,7 @@ function App() {
               checked={dark}
               onChange={() => setDark((x: boolean) => !x)}
             />
-            <label htmlFor="dark-setting">Dark theme</label>
+            <label htmlFor="dark-setting">ダークテーマ</label>
           </div>
           <div className="Settings-setting">
             <input
@@ -120,9 +137,9 @@ function App() {
               onChange={(e) => setDifficulty(+e.target.value)}
             />
             <div>
-              <label htmlFor="difficulty-setting">Difficulty:</label>
+              <label htmlFor="difficulty-setting">難しさ：</label>
               &nbsp;
-              <strong>{["Normal", "Hard", "Ultra Hard"][difficulty]}</strong>
+              <strong>{["ふつう", "はーど", "超はーど"][difficulty]}</strong>
               <div
                 style={{
                   fontSize: 14,
