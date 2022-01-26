@@ -75,7 +75,7 @@ function Game(props: GameProps) {
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [hint, setHint] = useState<string>(
     challengeError
-      ? `Invalid challenge string, playing random game.`
+      ? `招待リンクが無効です。ランダムモードをプレイします。`
       : `あなたの推測を入力してください！`
   );
   const [challenge, setChallenge] = useState<string>(initChallenge);
@@ -130,7 +130,7 @@ function Game(props: GameProps) {
 
   const onKey = (key: string) => {
     if (gameState !== GameState.Playing) {
-      if (key === "Enter") {
+      if (key === "確定" || key === "Enter") {
         startNextGame();
       }
       return;
@@ -203,8 +203,8 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) => "");
 
       const gameOver = (verbed: string) =>
-        `あなたの${verbed}！正解は「${target.toUpperCase()}」です。（確定を押して${
-          challenge ? "ランダムな単語で遊ぶ" : "再び遊ぶ"
+        `あなたの${verbed}！正解は「${target.toUpperCase()}」です。（確定で${
+          challenge ? "ランダムモードで遊ぶ" : "再び遊ぶ"
         })`;
 
       if (currentGuess === target) {
@@ -298,7 +298,7 @@ function Game(props: GameProps) {
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
             setHint(
-              `答えは「${target.toUpperCase()}」でした。（エンターを押して再チャレンジ）`
+              `答えは「${target.toUpperCase()}」でした。（確定で再挑戦）`
             );
             setGameState(GameState.Lost);
             (document.activeElement as HTMLElement)?.blur();

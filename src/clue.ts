@@ -1,4 +1,4 @@
-import { Difficulty, englishNumbers, ordinal, toConsonant, toSeion, toVowel } from "./util";
+import { Difficulty, toConsonant, toSeion, toVowel } from "./util";
 
 export enum Clue {
   Absent,
@@ -115,30 +115,30 @@ export function violation(
     const guessCount = guess.split(letter).length - 1;
     const glyph = letter.toUpperCase();
     const glyphs = glyph + (clueCount !== 1 ? "s" : "");
-    const nth = ordinal(i + 1);
+    const nth = i + 1;
 
     // Hard: enforce greens stay in place.
     if (clue === Clue.Correct && guess[i] !== letter) {
-      return nth + " letter must be " + glyph;
+      return nth + "番目の文字は「" + glyph + "」でなければなりません";
     }
 
     // Hard: enforce yellows are used.
     if (guessCount < clueCount) {
       const atLeastN =
-        clueCount > 1 ? `at least ${englishNumbers[clueCount]} ` : "";
-      return `Guess must contain ${atLeastN}${glyphs}`;
+        clueCount > 1 ? `少なくとも${clueCount}つの` : "";
+      return `推測には${atLeastN}「${glyphs}」が含まれている必要があります`;
     }
 
     // Ultra Hard: disallow would-be greens.
     if (ultra && clue !== Clue.Correct && guess[i] === letter) {
-      return nth + " letter can't be " + glyph;
+      return nth + "番目の文字は「" + glyph + "」ではありません";
     }
 
     // Ultra Hard: if the exact amount is known because of an Absent clue, enforce it.
     if (ultra && clue === Clue.Absent && guessCount !== clueCount) {
       return clueCount === 0
-        ? `Guess can't contain ${glyph}`
-        : `Guess must contain exactly ${englishNumbers[clueCount]} ${glyphs}`;
+        ? `${glyph}を含めることはできません`
+        : `推測には正確に${clueCount}つの「${glyphs}」が含まれている必要があります`;
     }
 
     ++i;

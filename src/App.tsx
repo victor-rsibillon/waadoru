@@ -150,9 +150,9 @@ function App() {
               >
                 {
                   [
-                    `Guesses must be valid dictionary words.`,
-                    `Wordle's "Hard Mode". Green letters must stay fixed, and yellow letters must be reused.`,
-                    `An even stricter Hard Mode. Yellow letters must move away from where they were clued, and gray clues must be obeyed.`,
+                    `辞書に載っている有効な単語を推測してください。`,
+                    `Wordleの"Hard Mode"です。緑の文字は固定したままにし、黄色の文字は再利用する必要があります。`,
+                    `ハードモードよりさらに厳しいモードです。黄色の文字は前回と違う場所に移動させる必要があり、灰色の文字からわかることにも従う必要があります。`,
                   ][difficulty]
                 }
               </div>
