@@ -64,7 +64,7 @@ function App() {
           <>
             <span
               style={{
-                color: "#e66"
+                color: "#e66",
               }}
             >
               はーど
@@ -75,7 +75,7 @@ function App() {
           <>
             <span
               style={{
-                color: "#e66" ,
+                color: "#e66",
                 fontStyle: "italic",
               }}
             >
