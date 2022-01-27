@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Row, RowState } from "./Row";
-import dictionary from "./dictionary.json";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targetList from "./targets.json";
@@ -18,7 +17,7 @@ import {
   urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
-import { toHiragana, toKatakana } from "wanakana";
+import { toHiragana, toRomaji } from "wanakana";
 
 enum GameState {
   Playing,
@@ -52,14 +51,14 @@ function getChallengeUrl(target: string): string {
     window.location.origin +
     window.location.pathname +
     "?challenge=" +
-    encode(target)
+    encode(toRomaji(target))
   );
 }
 
 let initChallenge = "";
 let challengeError = false;
 try {
-  initChallenge = decode(urlParam("challenge") ?? "").toLowerCase();
+  initChallenge = toHiragana(decode(urlParam("challenge") ?? ""));
 } catch (e) {
   console.warn(e);
   challengeError = true;
@@ -187,7 +186,7 @@ function Game(props: GameProps) {
         setHint("短すぎます");
         return;
       }
-      if (!dictionary.includes(toKatakana(currentGuess))) {
+      if (!dictionarySet.has(currentGuess)) {
         setHint("有効な単語ではありません");
         return;
       }

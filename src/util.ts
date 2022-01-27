@@ -1,3 +1,4 @@
+import { toHiragana } from "wanakana";
 import dictionary from "./dictionary.json";
 
 export enum Difficulty {
@@ -8,7 +9,7 @@ export enum Difficulty {
 
 export const maxGuesses = 6;
 
-export const dictionarySet: Set<string> = new Set(dictionary);
+export const dictionarySet: Set<string> = new Set(dictionary.map(word => toHiragana(word)));
 
 function mulberry32(a: number) {
   return function () {
