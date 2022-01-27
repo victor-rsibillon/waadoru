@@ -1,4 +1,12 @@
-import { Difficulty, toConsonant, toSeion, toVowel } from "./util";
+import {
+  Difficulty,
+  toConsonant,
+  toKogaki,
+  toSeion,
+  toSemivoiced,
+  toVoiced,
+  toVowel,
+} from "./util";
 
 export enum Clue {
   Absent,
@@ -16,7 +24,6 @@ export interface CluedLetter {
   letter: string;
 }
 
-
 export function clue(word: string, target: string): CluedLetter[] {
   let elusive: string[] = [];
   target.split("").forEach((letter, i) => {
@@ -30,11 +37,17 @@ export function clue(word: string, target: string): CluedLetter[] {
       return { clue: Clue.Correct, letter };
     } else if (toSeion(target[i]) === toSeion(letter)) {
       return { clue: Clue.Almost, letter };
-    } else if (toConsonant(target[i]) === toConsonant(letter) && (j = elusive.indexOf(letter)) > -1) {
+    } else if (
+      toConsonant(target[i]) === toConsonant(letter) &&
+      (j = elusive.indexOf(letter)) > -1
+    ) {
       // "use it up" so we don't clue at it twice
       elusive[j] = "";
       return { clue: Clue.CorrectConsonantAndElsewhere, letter };
-    } else if (toVowel(target[i]) === toVowel(letter) && (j = elusive.indexOf(letter)) > -1) {
+    } else if (
+      toVowel(target[i]) === toVowel(letter) &&
+      (j = elusive.indexOf(letter)) > -1
+    ) {
       // "use it up" so we don't clue at it twice
       elusive[j] = "";
       return { clue: Clue.CorrectVowelAndElsewhere, letter };
@@ -110,11 +123,15 @@ export function violation(
   let i = 0;
   for (const { letter, clue } of clues) {
     const clueCount = clues.filter(
-      (c) => c.letter === letter && c.clue !== Clue.Absent
+      (c) =>
+        c.letter === letter &&
+        (c.clue === Clue.Correct ||
+          c.clue === Clue.Elsewhere ||
+          c.clue === Clue.CorrectConsonantAndElsewhere ||
+          c.clue === Clue.CorrectVowelAndElsewhere)
     ).length;
     const guessCount = guess.split(letter).length - 1;
     const glyph = letter.toUpperCase();
-    const glyphs = glyph + (clueCount !== 1 ? "s" : "");
     const nth = i + 1;
 
     // Hard: enforce greens stay in place.
@@ -124,21 +141,63 @@ export function violation(
 
     // Hard: enforce yellows are used.
     if (guessCount < clueCount) {
-      const atLeastN =
-        clueCount > 1 ? `少なくとも${clueCount}つの` : "";
-      return `推測には${atLeastN}「${glyphs}」が含まれている必要があります`;
+      const atLeastN = clueCount > 1 ? `少なくとも${clueCount}つの` : "";
+      return `推測には${atLeastN}「${glyph}」が含まれている必要があります`;
     }
 
     // Ultra Hard: disallow would-be greens.
     if (ultra && clue !== Clue.Correct && guess[i] === letter) {
-      return nth + "番目の文字は「" + glyph + "」ではありません";
+      return `${nth}番目の文字は「${glyph}」ではありません`;
     }
 
     // Ultra Hard: if the exact amount is known because of an Absent clue, enforce it.
-    if (ultra && clue === Clue.Absent && guessCount !== clueCount) {
+    if (
+      ultra &&
+      (clue === Clue.Absent ||
+        clue === Clue.CorrectConsonant ||
+        clue === Clue.CorrectVowel) &&
+      guessCount !== clueCount
+    ) {
       return clueCount === 0
         ? `${glyph}を含めることはできません`
-        : `推測には正確に${clueCount}つの「${glyphs}」が含まれている必要があります`;
+        : `推測には正確に${clueCount}つの「${glyph}」が含まれている必要があります`;
+    }
+
+    if (
+      ultra &&
+      clue === Clue.Almost &&
+      toSeion(guess[i]) !== toSeion(letter)
+    ) {
+      const glyphs = Array.from(
+        new Set([
+          glyph,
+          toSeion(glyph),
+          toVoiced(glyph),
+          toSemivoiced(glyph),
+          toKogaki(glyph),
+        ])
+      ).map((g) => `「${g}」`);
+      const which = glyphs.length === 2 ? "どちら" : "どれ";
+      return `${nth}番目の文字は${glyphs.join(
+        ""
+      )}の${which}かが含まれている必要があります`;
+    }
+
+    if (
+      ultra &&
+      (clue === Clue.CorrectConsonant ||
+        clue === Clue.CorrectConsonantAndElsewhere) &&
+      toConsonant(guess[i]) !== toConsonant(letter)
+    ) {
+      return `${nth}番目の文字は${toConsonant(glyph)}行です`;
+    }
+
+    if (
+      ultra &&
+      (clue === Clue.CorrectVowel || clue === Clue.CorrectVowelAndElsewhere) &&
+      toVowel(guess[i]) !== toVowel(letter)
+    ) {
+      return `${nth}番目の文字は${toVowel(glyph)}段です`;
     }
 
     ++i;

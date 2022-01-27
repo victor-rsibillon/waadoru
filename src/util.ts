@@ -9,7 +9,9 @@ export enum Difficulty {
 
 export const maxGuesses = 6;
 
-export const dictionarySet: Set<string> = new Set(dictionary.map(word => toHiragana(word)));
+export const dictionarySet: Set<string> = new Set(
+  dictionary.map((word) => toHiragana(word))
+);
 
 function mulberry32(a: number) {
   return function () {
@@ -180,8 +182,72 @@ export function isVoiced(letter: string): boolean {
   return "がぎぐげござじずぜぞだぢづでどばびぶべぼ".includes(letter);
 }
 
+export function toVoiced(letter: string): string {
+  switch (letter) {
+    case "か":
+      return "が";
+    case "き":
+      return "ぎ";
+    case "く":
+      return "ぐ";
+    case "け":
+      return "げ";
+    case "こ":
+      return "ご";
+    case "さ":
+      return "ざ";
+    case "し":
+      return "じ";
+    case "す":
+      return "ず";
+    case "せ":
+      return "ぜ";
+    case "そ":
+      return "ぞ";
+    case "た":
+      return "だ";
+    case "ち":
+      return "ぢ";
+    case "つ":
+      return "づ";
+    case "て":
+      return "で";
+    case "と":
+      return "ど";
+    case "は":
+      return "ば";
+    case "ひ":
+      return "び";
+    case "ふ":
+      return "ぶ";
+    case "へ":
+      return "べ";
+    case "ほ":
+      return "ぼ";
+    default:
+      return letter;
+  }
+}
+
 export function isSemivoiced(letter: string): boolean {
   return "ぱぴぷぺぽ".includes(letter);
+}
+
+export function toSemivoiced(letter: string): string {
+  switch (letter) {
+    case "は":
+      return "ぱ";
+    case "ひ":
+      return "ぴ";
+    case "ふ":
+      return "ぷ";
+    case "へ":
+      return "ぺ";
+    case "ほ":
+      return "ぽ";
+    default:
+      return letter;
+  }
 }
 
 export function isKogaki(letter: string): boolean {
