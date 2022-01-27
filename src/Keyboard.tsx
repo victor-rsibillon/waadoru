@@ -1,7 +1,9 @@
-import { Clue, clueClass } from "./clue";
+import { Clue, clueClass, CluedLetter } from "./clue";
+import { toConsonant, toSeion, toVowel } from "./util";
 
 interface KeyboardProps {
   letterInfo: Map<string, Clue>;
+  guesses: CluedLetter[];
   onKey: (key: string) => void;
 }
 
@@ -24,6 +26,29 @@ export function Keyboard(props: KeyboardProps) {
             const clue = props.letterInfo.get(label);
             if (clue !== undefined) {
               className += " " + clueClass(clue);
+            } else if (
+              label !== "゛" &&
+              label !== "゜" &&
+              label !== "大/小" &&
+              label !== "Backspace" &&
+              label !== "確定" &&
+              props.guesses.some(
+                (c) =>
+                  c !== undefined &&
+                  (((c.clue === Clue.CorrectConsonant ||
+                    c.clue === Clue.CorrectConsonantAndElsewhere) &&
+                    toConsonant(c.letter) !== toConsonant(label)) ||
+                    ((c.clue === Clue.CorrectVowel ||
+                      c.clue === Clue.CorrectVowelAndElsewhere) &&
+                      toVowel(c.letter) !== toVowel(label)) ||
+                    (c.clue === Clue.Almost &&
+                      toSeion(c.letter) !== toSeion(label)) ||
+                    (c.clue === Clue.Correct && c.letter !== label))
+              )
+            ) {
+              className += " " + clueClass(Clue.Absent);
+            } else if (label === "　") {
+              className += " " + clueClass(Clue.Absent);
             }
             if (label.length > 1) {
               className += " Game-keyboard-button-wide";

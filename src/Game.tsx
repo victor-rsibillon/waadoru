@@ -330,7 +330,20 @@ function Game(props: GameProps) {
       >
         {hint || `\u00a0`}
       </p>
-      <Keyboard letterInfo={letterInfo} onKey={onKey} />
+      <Keyboard
+        letterInfo={letterInfo}
+        guesses={guesses
+          .map((g) => clue(g, target))
+          .map(
+            (c) =>
+              c[
+                currentGuess.length <= maxWordLength
+                  ? currentGuess.length
+                  : currentGuess.length - 1
+              ]
+          )}
+        onKey={onKey}
+      />
       {gameState !== GameState.Playing && (
         <p>
           <button
