@@ -273,6 +273,25 @@ a:active {
   );
 }
 
+.App-about b.black-green-bg {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 50%,
+    rgb(87, 172, 120) 50%,
+    rgb(87, 172, 120) 100%
+  );
+}
+
+.App-about b.green-black-bg {
+  background: linear-gradient(
+    135deg,
+    rgb(87, 172, 120) 0%,
+    rgb(87, 172, 120) 50%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
 
 .Game-seed-info {
   opacity: 0.5;

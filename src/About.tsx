@@ -22,52 +22,45 @@ export function About() {
         <a href="https://hellowordl.net">
           <i>Hello Wordl</i>
         </a>
-        からフォークして作りました。
-        日本語へローカライズするために、
+        からフォークして作りました。 日本語へローカライズするために、
         オリジナルのゲームにいくつかのルールを加えています。
       </p>
       <p>
-        お題の単語は{maxGuesses}回までに当てます。
+        お題の単語は{maxGuesses}回以内に当てます。
         <br />
         単語を推測すると、それに対してヒントが与えられます。
       </p>
       <hr />
       <Row
         rowState={RowState.LockedIn}
-        wordLength={8}
+        wordLength={7}
         cluedLetters={[
-          { clue: Clue.Absent, letter: "に" },
-          { clue: Clue.Absent, letter: "ほ" },
-          { clue: Clue.Correct, letter: "ん" },
-          { clue: Clue.Almost, letter: "ご" },
-          { clue: Clue.CorrectVowel, letter: "わ" },
-          { clue: Clue.Elsewhere, letter: "ー" },
-          { clue: Clue.CorrectConsonant, letter: "ど" },
-          { clue: Clue.CorrectConsonantAndElsewhere, letter: "る" },
+          { clue: Clue.Almost, letter: "し" },
+          { clue: Clue.CorrectConsonant, letter: "ょ" },
+          { clue: Clue.Correct, letter: "う" },
+          { clue: Clue.CorrectVowelAndElsewhere, letter: "ち" },
+          { clue: Clue.Absent, letter: "く" },
+          { clue: Clue.CorrectVowel, letter: "ば" },
+          { clue: Clue.Elsewhere, letter: "い" },
         ]}
       />
       <p>
-        <b>に</b> と <b>ほ</b> はお題の単語に含まれていません。
+        <b>く</b>はお題の単語に含まれていません。
       </p>
       <p>
-        <b className="green-bg">ん</b> は合っています！3番目の文字は{" "}
-        <b className="green-bg">ん</b>
-        です。
+        <b className="green-bg">う</b>は合っています！3番目の文字は
+        <b className="green-bg">う</b>です。
         <br />
         <strong>
-          （しかし、単語の中に「ん」が2回以上現れることもあります。）
+          （しかし、単語の中に「う」が2回以上現れることもあります。）
         </strong>
       </p>
       <p>
-        <b className="purple-bg">ご</b>はとても惜しいです。
-        4番目の文字は濁音ではなく、清音か半濁音または小書き文字であることを示しています。
-      </p>
-      <p>
-        <b className="gray-green-bg">わ</b>はお題の単語に含まれていません。
+        <b className="purple-bg">し</b>はとても惜しいです。
         <br />
-        しかし、5番目の文字はあ段でありわ行ではありません。
+        1番目の文字は清音ではなく、
         <br />
-        <strong>（右下の緑は母音が一致していることを表します。）</strong>
+        濁音か半濁音または小書き文字であることを示しています。
       </p>
       <p>
         <b className="yellow-bg">ー</b>はお題の単語の他の場所にあります。
@@ -75,20 +68,81 @@ export function About() {
         <strong>（2回以上現れることもあります。🤔）</strong>
       </p>
       <p>
-        <b className="green-gray-bg">ど</b>はお題の単語に含まれていません。
+        <b className="gray-green-bg">ば</b>は、
+        <b className="gray-bg">ば</b>と
+        <b className="black-green-bg">ば</b>の組み合わせです。
         <br />
-        しかし、7番目の文字はた行でありお段ではありません。
+        <b className="black-green-bg">　</b>は母音が一致していることを表します。
         <br />
-        <strong>（左上の緑は子音が一致していることを表します。）</strong>
+        つまり「ば」はお題の単語に含まれていませんが、
+        <br />
+        6番目の文字はば行ではないあ段の文字です。
       </p>
       <p>
-        <b className="green-yellow-bg">る</b>はお題の単語の他の場所にあります。
+        <b className="green-gray-bg">ょ</b>は、
+        <b className="gray-bg">ょ</b>と
+        <b className="green-black-bg">ょ</b>の組み合わせです。
         <br />
-        そして、8番目の文字はら行でありう段ではありません。
+        <b className="green-black-bg">　</b>は子音が一致していることを表します。
         <br />
+        つまり「ょ」はお題の単語に含まれていませんが、
+        <br />
+        2番目の文字はお段ではないや行の文字です。
+      </p>
+      <p>
+        <b className="green-yellow-bg">ち</b>は、
+        <b className="yellow-bg">ち</b>と
+        <b className="green-black-bg">ち</b>の組み合わせです。
+        <br />
+        つまり「ち」はお題の単語の他の場所にありますが、
+        <br />
+        4番目の文字はい段ではないた行の文字です。
       </p>
       <hr />
-      <p>具体的にはこんな感じです：</p>
+      <p>難しい場合は次のように適当な単語を入れるのも一つのコツです：</p>
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Almost, letter: "し" },
+          { clue: Clue.CorrectConsonant, letter: "ょ" },
+          { clue: Clue.Correct, letter: "う" },
+          { clue: Clue.CorrectVowelAndElsewhere, letter: "ち" },
+          { clue: Clue.Absent, letter: "く" },
+          { clue: Clue.CorrectVowel, letter: "ば" },
+          { clue: Clue.Elsewhere, letter: "い" },
+        ]}
+        annotation={"難しい……"}
+      />
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Correct, letter: "じ" },
+          { clue: Clue.Correct, letter: "ゅ" },
+          { clue: Clue.Correct, letter: "う" },
+          { clue: Clue.CorrectVowel, letter: "き" },
+          { clue: Clue.Absent, letter: "ん" },
+          { clue: Clue.Absent, letter: "ぞ" },
+          { clue: Clue.CorrectVowel, letter: "く" },
+        ]}
+        annotation={"適当な推測"}
+      />
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Correct, letter: "じ" },
+          { clue: Clue.Correct, letter: "ゅ" },
+          { clue: Clue.Correct, letter: "う" },
+          { clue: Clue.Correct, letter: "い" },
+          { clue: Clue.Correct, letter: "ち" },
+          { clue: Clue.Correct, letter: "が" },
+          { clue: Clue.Correct, letter: "つ" },
+        ]}
+        annotation={"わかった！"}
+      />
+      <p>他の例も見てみましょう：</p>
       <Row
         rowState={RowState.LockedIn}
         wordLength={5}
