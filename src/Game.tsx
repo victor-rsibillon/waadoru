@@ -31,9 +31,8 @@ interface GameProps {
   difficulty: Difficulty;
 }
 
-const targets = targetList
-  .map((word) => toHiragana(word))
-  //.filter((word) => dictionary.includes(word)); // .slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
+const targets = targetList.map((word) => toHiragana(word));
+//.filter((word) => dictionary.includes(word)); // .slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
 const minWordLength = 3;
 const maxWordLength = 10;
 
@@ -104,8 +103,16 @@ function Game(props: GameProps) {
     setGameNumber((x) => x + 1);
   };
 
-  async function share(url: string, copiedHint: string, text?: string) {
-    const body = url + (text ? "\n\n" + text : "");
+  async function share(
+    url: string,
+    copiedHint: string,
+    firstText?: string,
+    secondText?: string
+  ) {
+    const body =
+      (firstText ? firstText + "\n" : "") +
+      url +
+      (secondText ? "\n\n" + secondText : "");
     if (
       /android|iphone|ipad|ipod|webos/i.test(navigator.userAgent) &&
       !/firefox/i.test(navigator.userAgent)
@@ -341,11 +348,15 @@ function Game(props: GameProps) {
               share(
                 getChallengeUrl(target),
                 "結果をクリップボードにコピーしました！",
+                "Wordle 🇯🇵 わーどる（Waadoru）",
                 guesses
                   .map((guess) =>
                     clue(guess, target)
                       .map(
-                        (c) => ["⬛", "🟨", "🟥", "🟦", "🔴", "🔵", "🟪", "🟩"][c.clue ?? 0]
+                        (c) =>
+                          ["⬛", "🟡", "🟥", "🟦", "🔴", "🔵", "🟪", "🟩"][
+                            c.clue ?? 0
+                          ]
                       )
                       .join("")
                   )
