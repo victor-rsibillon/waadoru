@@ -372,7 +372,7 @@ function Game(props: GameProps) {
         <div className="Game-seed-info">playing a challenge game</div>
       ) : seed ? (
         <div className="Game-seed-info">
-          seed {seed}, length {wordLength}, game {gameNumber}
+          シード値：{seed}，単語の長さ：{wordLength}，ゲーム番号：{gameNumber}
         </div>
       ) : undefined}
     </div>
