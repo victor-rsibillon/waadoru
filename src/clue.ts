@@ -136,7 +136,7 @@ export function violation(
 
     // Hard: enforce greens stay in place.
     if (clue === Clue.Correct && guess[i] !== letter) {
-      return nth + "番目の文字は「" + glyph + "」でなければなりません";
+      return nth + "文字目は「" + glyph + "」でなければなりません";
     }
 
     // Hard: enforce yellows are used.
@@ -147,7 +147,7 @@ export function violation(
 
     // Ultra Hard: disallow would-be greens.
     if (ultra && clue !== Clue.Correct && guess[i] === letter) {
-      return `${nth}番目の文字は「${glyph}」ではありません`;
+      return `${nth}文字目は「${glyph}」ではありません`;
     }
 
     // Ultra Hard: if the exact amount is known because of an Absent clue, enforce it.
@@ -178,7 +178,7 @@ export function violation(
         ])
       ).map((g) => `「${g}」`);
       const which = glyphs.length === 2 ? "どちら" : "どれ";
-      return `${nth}番目の文字は${glyphs.join(
+      return `${nth}文字目は${glyphs.join(
         ""
       )}の${which}かが含まれている必要があります`;
     }
@@ -189,7 +189,7 @@ export function violation(
         clue === Clue.CorrectConsonantAndElsewhere) &&
       toConsonant(guess[i]) !== toConsonant(letter)
     ) {
-      return `${nth}番目の文字は${toConsonant(glyph)}行です`;
+      return `${nth}文字目は${toConsonant(glyph)}行です`;
     }
 
     if (
@@ -197,7 +197,7 @@ export function violation(
       (clue === Clue.CorrectVowel || clue === Clue.CorrectVowelAndElsewhere) &&
       toVowel(guess[i]) !== toVowel(letter)
     ) {
-      return `${nth}番目の文字は${toVowel(glyph)}段です`;
+      return `${nth}文字目は${toVowel(glyph)}段です`;
     }
 
     ++i;

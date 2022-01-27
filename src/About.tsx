@@ -48,7 +48,7 @@ export function About() {
         <b>く</b>はお題の単語に含まれていません。
       </p>
       <p>
-        <b className="green-bg">う</b>は合っています！3番目の文字は
+        <b className="green-bg">う</b>は合っています！3文字目は
         <b className="green-bg">う</b>です。
         <br />
         <strong>
@@ -58,7 +58,7 @@ export function About() {
       <p>
         <b className="purple-bg">し</b>はとても惜しいです。
         <br />
-        1番目の文字は清音ではなく、
+        1文字目は清音ではなく、
         <br />
         濁音か半濁音または小書き文字であることを示しています。
       </p>
@@ -76,7 +76,7 @@ export function About() {
         <br />
         つまり「ば」はお題の単語に含まれていませんが、
         <br />
-        6番目の文字はば行ではないあ段の文字です。
+        6文字目はば行ではないあ段の文字です。
       </p>
       <p>
         <b className="green-gray-bg">ょ</b>は、
@@ -87,7 +87,7 @@ export function About() {
         <br />
         つまり「ょ」はお題の単語に含まれていませんが、
         <br />
-        2番目の文字はお段ではないや行の文字です。
+        2文字目はお段ではないや行の文字です。
       </p>
       <p>
         <b className="green-yellow-bg">ち</b>は、
@@ -96,7 +96,7 @@ export function About() {
         <br />
         つまり「ち」はお題の単語の他の場所にありますが、
         <br />
-        4番目の文字はい段ではないた行の文字です。
+        4文字目はい段ではないた行の文字です。
       </p>
       <hr />
       <p>難しい場合は次のように適当な単語を入れるのも一つのコツです：</p>
