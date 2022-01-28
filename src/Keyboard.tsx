@@ -35,7 +35,7 @@ export function Keyboard(props: KeyboardProps) {
               props.guesses.some(
                 (c) =>
                   c !== undefined &&
-                  ((c.clue === Clue.Absent &&
+                  (((c.clue === Clue.Absent || c.clue === Clue.Elsewhere) &&
                     (toConsonant(c.letter) === toConsonant(label) ||
                       toVowel(c.letter) === toVowel(label))) ||
                     ((c.clue === Clue.CorrectConsonant ||
