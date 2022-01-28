@@ -334,14 +334,10 @@ function Game(props: GameProps) {
         letterInfo={letterInfo}
         guesses={guesses
           .map((g) => clue(g, target))
-          .map(
-            (c) =>
-              c[
-                currentGuess.length <= maxWordLength
-                  ? currentGuess.length
-                  : currentGuess.length - 1
-              ]
-          )}
+          .map((c) => {
+            const length = currentGuess.replace(/\w/g, "").length;
+            return c[length <= maxWordLength ? length : length - 1];
+          })}
         onKey={onKey}
       />
       {gameState !== GameState.Playing && (
