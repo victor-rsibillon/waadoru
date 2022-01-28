@@ -142,7 +142,7 @@ export function toConsonant(letter: string): string {
     return "や";
   } else if ("らりるれろ".includes(letter)) {
     return "ら";
-  } else if ("わを".includes(letter)) {
+  } else if ("わゐゑを".includes(letter)) {
     return "わ";
   } else if ("がぎぐげご".includes(letter)) {
     return "が";
@@ -165,11 +165,11 @@ export function toVowel(letter: string): string {
   const seionLetter = toSeion(letter);
   if ("あかさたなはまやらわ".includes(seionLetter)) {
     return "あ";
-  } else if ("いきしちにひみり".includes(seionLetter)) {
+  } else if ("いきしちにひみりゐ".includes(seionLetter)) {
     return "い";
   } else if ("うくすつぬふむゆる".includes(seionLetter)) {
     return "う";
-  } else if ("えけせてねへめれ".includes(seionLetter)) {
+  } else if ("えけせてねへめれゑ".includes(seionLetter)) {
     return "え";
   } else if ("おこそとのほもよろ".includes(seionLetter)) {
     return "お";
