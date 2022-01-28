@@ -35,9 +35,12 @@ export function Keyboard(props: KeyboardProps) {
               props.guesses.some(
                 (c) =>
                   c !== undefined &&
-                  (((c.clue === Clue.CorrectConsonant ||
-                    c.clue === Clue.CorrectConsonantAndElsewhere) &&
-                    toConsonant(c.letter) !== toConsonant(label)) ||
+                  ((c.clue === Clue.Absent &&
+                    (toConsonant(c.letter) === toConsonant(label) ||
+                      toVowel(c.letter) === toVowel(label))) ||
+                    ((c.clue === Clue.CorrectConsonant ||
+                      c.clue === Clue.CorrectConsonantAndElsewhere) &&
+                      toConsonant(c.letter) !== toConsonant(label)) ||
                     ((c.clue === Clue.CorrectVowel ||
                       c.clue === Clue.CorrectVowelAndElsewhere) &&
                       toVowel(c.letter) !== toVowel(label)) ||
