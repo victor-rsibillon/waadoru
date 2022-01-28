@@ -172,7 +172,6 @@ function Game(props: GameProps) {
       const key = isVoiced(letter)
         ? toSeion(letter)
         : (toSeion(letter) + mark).normalize().replace(mark, "");
-      setCurrentGuess((guess) => (guess + key).normalize().replace(key, ""));
       setCurrentGuess((guess) =>
         (guess.slice(0, -1) + key).slice(0, wordLength)
       );
