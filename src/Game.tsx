@@ -194,7 +194,17 @@ function Game(props: GameProps) {
         return;
       }
       if (!dictionarySet.has(currentGuess)) {
-        setHint("有効な単語ではありません");
+        if (/^(.)\1+$/g.test(currentGuess)) {
+          if (guesses.length === 0)
+            setHint(
+              "お疲れですか？こんなゲームなんかやめて、散歩でもしましょう"
+            );
+          else {
+            setHint(`${currentGuess}！難しいですが、頑張ってください！`);
+          }
+        } else {
+          setHint("有効な単語ではありません");
+        }
         return;
       }
       for (const g of guesses) {
