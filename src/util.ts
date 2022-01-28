@@ -124,7 +124,7 @@ export function toVowel(letter: string): string {
     いきしちにひみりゐ: "い",
     うくすつぬふむゆる: "う",
     えけせてねへめれゑ: "え",
-    おこそとのほもよろ: "お",
+    おこそとのほもよろを: "お",
   }))
     if (key.includes(seionLetter)) return value;
   return letter;
