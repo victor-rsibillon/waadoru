@@ -60,122 +60,73 @@ export function speak(
 }
 
 export function toSeion(letter: string): string {
-  if ("ぁ".includes(letter)) {
-    return "あ";
-  } else if ("ぃ".includes(letter)) {
-    return "い";
-  } else if ("ぅ".includes(letter)) {
-    return "う";
-  } else if ("ぇ".includes(letter)) {
-    return "え";
-  } else if ("ぉ".includes(letter)) {
-    return "お";
-  } else if ("がゕ".includes(letter)) {
-    return "か";
-  } else if ("ぎ".includes(letter)) {
-    return "き";
-  } else if ("ぐ".includes(letter)) {
-    return "く";
-  } else if ("げゖ".includes(letter)) {
-    return "け";
-  } else if ("ご".includes(letter)) {
-    return "こ";
-  } else if ("ざ".includes(letter)) {
-    return "さ";
-  } else if ("じ".includes(letter)) {
-    return "し";
-  } else if ("ず".includes(letter)) {
-    return "す";
-  } else if ("ぜ".includes(letter)) {
-    return "せ";
-  } else if ("ぞ".includes(letter)) {
-    return "そ";
-  } else if ("だ".includes(letter)) {
-    return "た";
-  } else if ("ぢ".includes(letter)) {
-    return "ち";
-  } else if ("づっ".includes(letter)) {
-    return "つ";
-  } else if ("で".includes(letter)) {
-    return "て";
-  } else if ("ど".includes(letter)) {
-    return "と";
-  } else if ("ばぱ".includes(letter)) {
-    return "は";
-  } else if ("びぴ".includes(letter)) {
-    return "ひ";
-  } else if ("ぶぷ".includes(letter)) {
-    return "ふ";
-  } else if ("べぺ".includes(letter)) {
-    return "へ";
-  } else if ("ぼぽ".includes(letter)) {
-    return "ほ";
-  } else if ("ゃ".includes(letter)) {
-    return "や";
-  } else if ("ゅ".includes(letter)) {
-    return "ゆ";
-  } else if ("ょ".includes(letter)) {
-    return "よ";
-  } else if ("ゎ".includes(letter)) {
-    return "わ";
-  } else {
-    return letter;
-  }
+  for (let [key, value] of Object.entries({
+    ぁ: "あ",
+    ぃ: "い",
+    ぅ: "う",
+    ぇ: "え",
+    ぉ: "お",
+    がゕ: "か",
+    ぎ: "き",
+    ぐ: "く",
+    げゖ: "け",
+    ご: "こ",
+    ざ: "さ",
+    じ: "し",
+    ず: "す",
+    ぜ: "せ",
+    ぞ: "そ",
+    だ: "た",
+    ぢ: "ち",
+    づっ: "つ",
+    で: "て",
+    ど: "と",
+    ばぱ: "は",
+    びぴ: "ひ",
+    ぶぷ: "ふ",
+    べぺ: "へ",
+    ぼぽ: "ほ",
+    ゃ: "や",
+    ゅ: "ゆ",
+    ょ: "よ",
+    ゎ: "わ",
+  }))
+    if (key.includes(letter)) return value;
+  return letter;
 }
 
 export function toConsonant(letter: string): string {
-  if ("あいうえおぁぃぅぇぉ".includes(letter)) {
-    return "あ";
-  } else if ("かきくけこゕゖ".includes(letter)) {
-    return "か";
-  } else if ("さしすせそ".includes(letter)) {
-    return "さ";
-  } else if ("たちつてと".includes(letter)) {
-    return "た";
-  } else if ("なにぬねの".includes(letter)) {
-    return "な";
-  } else if ("はひふへほ".includes(letter)) {
-    return "は";
-  } else if ("まみむめも".includes(letter)) {
-    return "ま";
-  } else if ("やゆよゃゅょ".includes(letter)) {
-    return "や";
-  } else if ("らりるれろ".includes(letter)) {
-    return "ら";
-  } else if ("わゐゑを".includes(letter)) {
-    return "わ";
-  } else if ("がぎぐげご".includes(letter)) {
-    return "が";
-  } else if ("ざじずぜぞ".includes(letter)) {
-    return "ざ";
-  } else if ("だぢづでど".includes(letter)) {
-    return "だ";
-  } else if ("ばびぶべぼ".includes(letter)) {
-    return "ば";
-  } else if ("ぱぴぷぺぽ".includes(letter)) {
-    return "ぱ";
-  } else if ("ぱぴぷぺぽ".includes(letter)) {
-    return "ぱ";
-  } else {
-    return letter;
-  }
+  for (let [key, value] of Object.entries({
+    あいうえおぁぃぅぇぉ: "あ",
+    かきくけこゕゖ: "か",
+    さしすせそ: "さ",
+    たちつてと: "た",
+    なにぬねの: "な",
+    はひふへほ: "は",
+    まみむめも: "ま",
+    やゆよゃゅょ: "や",
+    らりるれろ: "ら",
+    わゐゑを: "わ",
+    がぎぐげご: "が",
+    ざじずぜぞ: "ざ",
+    だぢづでど: "だ",
+    ばびぶべぼ: "ば",
+    ぱぴぷぺぽ: "ぱ",
+  }))
+    if (key.includes(letter)) return value;
+  return letter;
 }
 
 export function toVowel(letter: string): string {
-  const seionLetter = toSeion(letter);
-  if ("あかさたなはまやらわ".includes(seionLetter)) {
-    return "あ";
-  } else if ("いきしちにひみりゐ".includes(seionLetter)) {
-    return "い";
-  } else if ("うくすつぬふむゆる".includes(seionLetter)) {
-    return "う";
-  } else if ("えけせてねへめれゑ".includes(seionLetter)) {
-    return "え";
-  } else if ("おこそとのほもよろ".includes(seionLetter)) {
-    return "お";
-  } else {
-    return letter;
-  }
+  for (let [key, value] of Object.entries({
+    あかさたなはまやらわ: "あ",
+    いきしちにひみりゐ: "い",
+    うくすつぬふむゆる: "う",
+    えけせてねへめれゑ: "え",
+    おこそとのほもよろ: "お",
+  }))
+    if (key.includes(letter)) return value;
+  return letter;
 }
 
 export function isVoiced(letter: string): boolean {
