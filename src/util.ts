@@ -9,8 +9,11 @@ export enum Difficulty {
 
 export const maxGuesses = 6;
 
+export const toHiraganaKeepLongVowelMark = (input: string) =>
+  toHiragana(input.replaceAll("ー", "_")).replaceAll("_", "ー");
+
 export const dictionarySet: Set<string> = new Set(
-  dictionary.map((word) => toHiragana(word))
+  dictionary.map((word) => toHiraganaKeepLongVowelMark(word))
 );
 
 function mulberry32(a: number) {

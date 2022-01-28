@@ -12,12 +12,13 @@ import {
   resetRng,
   seed,
   speak,
+  toHiraganaKeepLongVowelMark,
   toKogaki,
   toSeion,
   urlParam,
 } from "./util";
 import { decode, encode } from "./base64";
-import { toHiragana, toRomaji } from "wanakana";
+import { toRomaji } from "wanakana";
 
 enum GameState {
   Playing,
@@ -31,7 +32,7 @@ interface GameProps {
   difficulty: Difficulty;
 }
 
-const targets = targetList.map((word) => toHiragana(word));
+const targets = targetList.map((word) => toHiraganaKeepLongVowelMark(word));
 //.filter((word) => dictionary.includes(word)); // .slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
 const minWordLength = 3;
 const maxWordLength = 10;
@@ -57,7 +58,7 @@ function getChallengeUrl(target: string): string {
 let initChallenge = "";
 let challengeError = false;
 try {
-  initChallenge = toHiragana(decode(urlParam("challenge") ?? ""));
+  initChallenge = toHiraganaKeepLongVowelMark(decode(urlParam("challenge") ?? ""));
 } catch (e) {
   console.warn(e);
   challengeError = true;
@@ -151,7 +152,7 @@ function Game(props: GameProps) {
         return (
           !/n$/i.test(guess) && key.toLowerCase() === "n"
             ? newGuess
-            : toHiragana(newGuess.replace("nn", "n"))
+            : toHiraganaKeepLongVowelMark(newGuess.replace("nn", "n"))
         ).slice(0, wordLength);
       });
       tableRef.current?.focus();
