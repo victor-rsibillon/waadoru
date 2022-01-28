@@ -200,6 +200,22 @@ export function violation(
       return `${nth}文字目は${toVowel(glyph)}段です`;
     }
 
+    if (
+      ultra &&
+      clue === Clue.Absent &&
+      toConsonant(guess[i]) === toConsonant(letter)
+    ) {
+      return `${nth}文字目は${toConsonant(glyph)}行ではありません`;
+    }
+
+    if (
+      ultra &&
+      clue === Clue.Absent &&
+      toVowel(guess[i]) === toVowel(letter)
+    ) {
+      return `${nth}文字目は${toVowel(glyph)}段ではありません`;
+    }
+
     ++i;
   }
   return undefined;
