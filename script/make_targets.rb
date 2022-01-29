@@ -15,7 +15,7 @@ files.each do |file|
   end
 end
 
-File.open('kana-frequency-words.tsv') do |f|
+File.open('reb.tsv') do |f|
   targets = f.read.tr('ァ-ン', 'ぁ-ん').split
 end
 

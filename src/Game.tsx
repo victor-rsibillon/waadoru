@@ -35,7 +35,7 @@ interface GameProps {
 
 const targets = targetList;
 const minWordLength = 3;
-const maxWordLength = 9;
+const maxWordLength = 10;
 
 function randomTarget(wordLength: number): string {
   const eligible = targets.filter((word) => word.length === wordLength);
