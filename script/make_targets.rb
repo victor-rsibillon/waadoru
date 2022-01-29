@@ -1,7 +1,12 @@
 dictionary = []
 targets = []
 
-files = ['adj.tsv', 'interjection.tsv', 'noun.adverbal.tsv', 'noun.number.tsv', 'noun.tsv', 'noun.verbal.tsv',
+files = ['adj.tsv',
+         'interjection.tsv',
+         'noun.adverbal.tsv',
+         'noun.number.tsv',
+         'noun.tsv',
+         'noun.verbal.tsv',
          'verb.tsv']
 
 files.each do |file|

@@ -1,6 +1,12 @@
 dictionary = []
 
-files = ['adj.tsv', 'interjection.tsv', 'noun.adverbal.tsv', 'noun.number.tsv', 'noun.tsv', 'noun.verbal.tsv', 'verb.tsv']
+files = ['adj.tsv',
+         'interjection.tsv',
+         'noun.adverbal.tsv',
+         'noun.number.tsv',
+         'noun.tsv',
+         'noun.verbal.tsv',
+         'verb.tsv']
 
 files.each do |file|
   File.open(file) do |f|
