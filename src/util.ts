@@ -12,9 +12,7 @@ export const maxGuesses = 6;
 export const toHiraganaKeepLongVowelMark = (input: string) =>
   toHiragana(input.replaceAll("ー", "_")).replaceAll("_", "ー");
 
-export const dictionarySet: Set<string> = new Set(
-  dictionary.map((word) => toHiraganaKeepLongVowelMark(word))
-);
+export const dictionarySet: Set<string> = new Set(dictionary);
 
 function mulberry32(a: number) {
   return function () {

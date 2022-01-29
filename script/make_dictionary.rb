@@ -4,7 +4,7 @@ files = ['adj.tsv', 'interjection.tsv', 'noun.adverbal.tsv', 'noun.number.tsv', 
 
 files.each do |file|
   File.open(file) do |f|
-    dictionary |= f.read.split
+    dictionary |= f.read.tr('ァ-ン', 'ぁ-ん').split.filter { |w| /^[ぁ-ん]+$/.match?(w) }
   end
 end
 

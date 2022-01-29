@@ -33,10 +33,9 @@ interface GameProps {
   difficulty: Difficulty;
 }
 
-const targets = targetList.map((word) => toHiraganaKeepLongVowelMark(word));
-//.filter((word) => dictionary.includes(word)); // .slice(0, targetList.indexOf("murky") + 1); // Words no rarer than this one
+const targets = targetList;
 const minWordLength = 3;
-const maxWordLength = 10;
+const maxWordLength = 9;
 
 function randomTarget(wordLength: number): string {
   const eligible = targets.filter((word) => word.length === wordLength);
