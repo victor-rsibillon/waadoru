@@ -7,7 +7,9 @@ files = ['adj.tsv',
          'noun.number.tsv',
          'noun.tsv',
          'noun.verbal.tsv',
-         'verb.tsv']
+         'verb.tsv',
+         'neologd-common-noun-ortho-variant-dict-seed.20170228.tsv',
+         'neologd-noun-sahen-conn-ortho-variant-dict-seed.20160323.tsv']
 
 files.each do |file|
   File.open(file) do |f|
