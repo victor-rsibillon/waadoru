@@ -19,6 +19,7 @@ import {
 } from "./util";
 import { decode, encode } from "./base64";
 import { toRomaji } from "wanakana";
+import { cheer } from "./cheer";
 
 enum GameState {
   Playing,
@@ -58,7 +59,9 @@ function getChallengeUrl(target: string): string {
 let initChallenge = "";
 let challengeError = false;
 try {
-  initChallenge = toHiraganaKeepLongVowelMark(decode(urlParam("challenge") ?? ""));
+  initChallenge = toHiraganaKeepLongVowelMark(
+    decode(urlParam("challenge") ?? "")
+  );
 } catch (e) {
   console.warn(e);
   challengeError = true;
@@ -86,6 +89,7 @@ function Game(props: GameProps) {
     return challenge || randomTarget(wordLength);
   });
   const [gameNumber, setGameNumber] = useState(1);
+  const [candidates, setCandidates] = useState(Array.from(dictionarySet));
   const tableRef = useRef<HTMLTableElement>(null);
   const startNextGame = () => {
     if (challenge) {
@@ -102,6 +106,9 @@ function Game(props: GameProps) {
     setHint("");
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
+    setCandidates(
+      Array.from(dictionarySet).filter((word) => word.length === newWordLength)
+    );
   };
 
   async function share(
@@ -200,7 +207,7 @@ function Game(props: GameProps) {
               "お疲れですか？こんなゲームなんかやめて、散歩でもしましょう"
             );
           else {
-            setHint(`${currentGuess}！難しいですが、頑張ってください！`);
+            setHint(cheer(candidates, guesses, target, setCandidates));
           }
         } else {
           setHint("有効な単語ではありません");
@@ -306,6 +313,9 @@ function Game(props: GameProps) {
             setCurrentGuess("");
             setTarget(randomTarget(length));
             setWordLength(length);
+            setCandidates(
+              Array.from(dictionarySet).filter((word) => word.length === length)
+            );
             setHint(`${length} 文字`);
           }}
         ></input>
