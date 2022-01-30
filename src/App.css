@@ -263,6 +263,16 @@ a:active {
   );
 }
 
+.App-about b.yellow-green-bg {
+  background: linear-gradient(
+    135deg,
+    #e9c601 0%,
+    #e9c601 50%,
+    rgb(87, 172, 120) 50%,
+    rgb(87, 172, 120) 100%
+  );
+}
+
 .App-about b.green-yellow-bg {
   background: linear-gradient(
     135deg,

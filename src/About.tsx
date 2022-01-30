@@ -158,6 +158,42 @@ export function About() {
       </p>
       <hr />
       <h2>ルール</h2>
+      <p>
+        <b className="green-bg">　</b>（絵文字は🟩）は一致を表します。
+      </p>
+      <p>
+        <b className="purple-bg">　</b>
+        （絵文字は🟪）は清音、濁音、半濁音、小書き文字のどれかであることを表します。
+      </p>
+      <p>
+        <b className="gray-bg">　</b>
+        （絵文字は⬛）はお題の単語に含まれていないことを表します。
+      </p>
+      <p>
+        <b className="green-gray-bg">　</b>
+        （絵文字は🟦）は行が一致していることを表します。
+      </p>
+      <p>
+        <b className="gray-green-bg">　</b>
+        （絵文字は🟥）は段が一致していることを表します。
+      </p>
+      <p>
+        <b className="yellow-bg">　</b>
+        （絵文字は🟡）は他の場所にあることを表します。
+      </p>
+      <p>
+        <b className="green-yellow-bg">　</b>
+        （絵文字は🔵）は<b className="yellow-bg">　</b>と
+        <b className="green-black-bg">　</b>
+        の組み合わせを表します。
+      </p>
+      <p>
+        <b className="yellow-green-bg">　</b>
+        （絵文字は🔴）は<b className="yellow-bg">　</b>と
+        <b className="black-green-bg">　</b>
+        の組み合わせを表します。
+      </p>
+      <hr />
       <Row
         rowState={RowState.LockedIn}
         wordLength={7}
@@ -333,8 +369,7 @@ export function About() {
       <hr />
       <p>
         <h2>辞書について</h2>
-        辞書は、名詞、形容詞及び動詞が含まれています。
-        外来語も含まれています。
+        辞書は、名詞、形容詞及び動詞が含まれています。外来語も含まれています。
         固有名詞や代名詞、副詞は基本的に含まれていませんが、たまに含まれていることがあるのでご了承ください。
         活用語は、すべて終止形です。
       </p>
