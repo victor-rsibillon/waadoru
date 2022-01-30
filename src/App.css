@@ -293,6 +293,27 @@ a:active {
   );
 }
 
+.App-about table.kana-table,
+td,
+th {
+  border-collapse: collapse;
+  border: 1px solid #888;
+  margin: auto;
+  padding: 2px 4px;
+}
+@media screen and (max-width: 500px) {
+  .App-about table.kana-table,
+  td,
+  th {
+    font-size: 70%;
+  }
+}
+
+.App-about td.border-none,
+th.border-none {
+  border: none;
+}
+
 .Game-seed-info {
   opacity: 0.5;
   margin-top: 1em;

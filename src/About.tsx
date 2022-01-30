@@ -31,6 +31,133 @@ export function About() {
         単語を推測すると、それに対してヒントが与えられます。
       </p>
       <hr />
+      <p>
+        <h2>よくわかる五十音表</h2>
+        <table className="kana-table">
+          <th colSpan={17}>
+            <b className="green-black-bg">　</b> ⬇️行の一致⬇️
+          </th>
+          <th></th>
+          <tr>
+            <th rowSpan={6} className="border-none"></th>
+            <th rowSpan={5} className="border-none"></th>
+            <th>ぱ</th>
+            <th>ば</th>
+            <th>だ</th>
+            <th>ざ</th>
+            <th>が</th>
+            <th>わ</th>
+            <th>ら</th>
+            <th>やゃ</th>
+            <th>ま</th>
+            <th>は</th>
+            <th>な</th>
+            <th>た</th>
+            <th>さ</th>
+            <th>か</th>
+            <th>あぁ</th>
+            <th rowSpan={7}>
+              ⬅️
+              <br />段<br />の<br />一<br />致<br />
+              ⬅️
+              <br />
+              <b className="black-green-bg">　</b>
+            </th>
+          </tr>
+          <tr>
+            <td>ぴ</td>
+            <td>び</td>
+            <td>ぢ</td>
+            <td>じ</td>
+            <td>ぎ</td>
+            <td>ゐ</td>
+            <td>り</td>
+            <td></td>
+            <td>み</td>
+            <td>ひ</td>
+            <td>に</td>
+            <td>ち</td>
+            <td>し</td>
+            <td>き</td>
+            <th>いぃ</th>
+          </tr>
+          <tr>
+            <td>ぷ</td>
+            <td>ぶ</td>
+            <td>づ</td>
+            <td>ず</td>
+            <td>ぐ</td>
+            <td></td>
+            <td>る</td>
+            <td>ゆゅ</td>
+            <td>む</td>
+            <td>ふ</td>
+            <td>ぬ</td>
+            <td>つっ</td>
+            <td>す</td>
+            <td>く</td>
+            <th>うぅ</th>
+          </tr>
+          <tr>
+            <td>ぺ</td>
+            <td>べ</td>
+            <td>で</td>
+            <td>ぜ</td>
+            <td>げ</td>
+            <td>ゑ</td>
+            <td>れ</td>
+            <td></td>
+            <td>め</td>
+            <td>へ</td>
+            <td>ね</td>
+            <td>て</td>
+            <td>せ</td>
+            <td>け</td>
+            <th>えぇ</th>
+          </tr>
+          <tr>
+            <td>ぽ</td>
+            <td>ぼ</td>
+            <td>ど</td>
+            <td>ぞ</td>
+            <td>ご</td>
+            <td>を</td>
+            <td>ろ</td>
+            <td>よょ</td>
+            <td>も</td>
+            <td>ほ</td>
+            <td>の</td>
+            <td>と</td>
+            <td>そ</td>
+            <td>こ</td>
+            <th>おぉ</th>
+          </tr>
+          <tr>
+            <th>ん</th>
+            <td colSpan={15} className="border-none"></td>
+          </tr>
+          <tr>
+            <th>ー</th>
+            <td colSpan={16} className="border-none"></td>
+          </tr>
+        </table>
+      </p>
+      <p>本ゲームは、上の五十音表を使用します。</p>
+      <p>
+        行は基本的に子音が同じであることを示します。
+        例えばか行は「か」「き」「く」「け」「こ」の5文字です。
+        清音と濁音、半濁音は区別します。
+      </p>
+      <p>
+        段は基本的に母音が同じであることを示します。
+        例えばい段は「い」「き」「し」「ち」「に」「ひ」「み」「り」「ゐ」「ぎ」「じ」「ぢ」「び」「ぴ」です。
+      </p>
+      <p>
+        「ん」と「ー」は他のどの行にも一致しません。
+        また、他のどの段にも一致しません。
+      </p>
+      <hr />
+      <h2>ルール</h2>
       <Row
         rowState={RowState.LockedIn}
         wordLength={7}
@@ -69,10 +196,10 @@ export function About() {
       </p>
       <p>
         <b className="gray-green-bg">ば</b>は、
-        <b className="gray-bg">ば</b>と
-        <b className="black-green-bg">ば</b>の組み合わせです。
+        <b className="gray-bg">ば</b>と<b className="black-green-bg">ば</b>
+        の組み合わせです。
         <br />
-        <b className="black-green-bg">　</b>は母音が一致していることを表します。
+        <b className="black-green-bg">　</b>は段が一致していることを表します。
         <br />
         つまり「ば」はお題の単語に含まれていませんが、
         <br />
@@ -80,19 +207,19 @@ export function About() {
       </p>
       <p>
         <b className="green-gray-bg">ょ</b>は、
-        <b className="gray-bg">ょ</b>と
-        <b className="green-black-bg">ょ</b>の組み合わせです。
+        <b className="gray-bg">ょ</b>と<b className="green-black-bg">ょ</b>
+        の組み合わせです。
         <br />
-        <b className="green-black-bg">　</b>は子音が一致していることを表します。
+        <b className="green-black-bg">　</b>は行が一致していることを表します。
         <br />
         つまり「ょ」はお題の単語に含まれていませんが、
         <br />
-        2文字目はお段ではないや行の文字です。
+        2文字目はや行であるお段ではない文字です。
       </p>
       <p>
         <b className="green-yellow-bg">ち</b>は、
-        <b className="yellow-bg">ち</b>と
-        <b className="green-black-bg">ち</b>の組み合わせです。
+        <b className="yellow-bg">ち</b>と<b className="green-black-bg">ち</b>
+        の組み合わせです。
         <br />
         つまり「ち」はお題の単語の他の場所にありますが、
         <br />
@@ -203,6 +330,15 @@ export function About() {
         ]}
         annotation={"やったね！"}
       />
+      <hr />
+      <p>
+        <h2>辞書について</h2>
+        辞書は、名詞、形容詞及び動詞が含まれています。
+        外来語も含まれています。
+        固有名詞や代名詞、副詞は基本的に含まれていませんが、たまに含まれていることがあるのでご了承ください。
+        活用語は、すべて終止形です。
+      </p>
+      <hr />
       <p>
         問題やバグが発生した場合は
         <a href="https://github.com/skytomo221/waadoru/issues">ここ</a>
