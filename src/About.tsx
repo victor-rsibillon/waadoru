@@ -374,10 +374,10 @@ export function About() {
           { clue: Clue.Absent, letter: "い" },
           { clue: Clue.Elsewhere, letter: "っ" },
           { clue: Clue.Correct, letter: "か" },
-          { clue: Clue.CorrectVowel, letter: "く" },
+          { clue: Clue.CorrectVowelAndElsewhere, letter: "く" },
           { clue: Clue.Almost, letter: "じ" },
           { clue: Clue.CorrectConsonant, letter: "ゅ" },
-          { clue: Clue.CorrectVowelAndElsewhere, letter: "う" },
+          { clue: Clue.CorrectVowel, letter: "う" },
         ]}
       />
       <Row
