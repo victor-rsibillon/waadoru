@@ -366,6 +366,60 @@ export function About() {
         ]}
         annotation={"やったね！"}
       />
+      <p>さらに他の例：</p>
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Absent, letter: "い" },
+          { clue: Clue.Elsewhere, letter: "っ" },
+          { clue: Clue.Correct, letter: "か" },
+          { clue: Clue.CorrectVowel, letter: "く" },
+          { clue: Clue.Almost, letter: "じ" },
+          { clue: Clue.CorrectConsonant, letter: "ゅ" },
+          { clue: Clue.CorrectVowelAndElsewhere, letter: "う" },
+        ]}
+      />
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Correct, letter: "せ" },
+          { clue: Clue.Correct, letter: "き" },
+          { clue: Clue.Correct, letter: "か" },
+          { clue: Clue.Correct, letter: "っ" },
+          { clue: Clue.Correct, letter: "し" },
+          { clue: Clue.Correct, letter: "ょ" },
+          { clue: Clue.Correct, letter: "く" },
+        ]}
+      />
+      <p>外来語の例はこちら：</p>
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Absent, letter: "め" },
+          { clue: Clue.Elsewhere, letter: "ー" },
+          { clue: Clue.CorrectVowel, letter: "る" },
+          { clue: Clue.Almost, letter: "ぼ" },
+          { clue: Clue.Correct, letter: "っ" },
+          { clue: Clue.CorrectConsonant, letter: "く" },
+          { clue: Clue.Elsewhere, letter: "す" },
+        ]}
+      />
+      <Row
+        rowState={RowState.LockedIn}
+        wordLength={7}
+        cluedLetters={[
+          { clue: Clue.Correct, letter: "あ" },
+          { clue: Clue.Correct, letter: "い" },
+          { clue: Clue.Correct, letter: "す" },
+          { clue: Clue.Correct, letter: "ほ" },
+          { clue: Clue.Correct, letter: "っ" },
+          { clue: Clue.Correct, letter: "け" },
+          { clue: Clue.Correct, letter: "ー" },
+        ]}
+      />
       <hr />
       <p>
         <h2>辞書について</h2>
