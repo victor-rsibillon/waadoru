@@ -2,6 +2,7 @@ dictionary = []
 
 files = ['adj.tsv',
          'interjection.tsv',
+         'noun.adjv.tsv',
          'noun.adverbal.tsv',
          'noun.number.tsv',
          'noun.tsv',
