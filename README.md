@@ -1,27 +1,48 @@
-# hello wordl
-It's [Wordle](https://www.powerlanguage.co.uk/wordle/) but you can play forever!
+# わーどる（Waadoru）
 
-Play it [**here**](https://hellowordl.net/).
+何度でも遊べる日本語版[Wordle](https://www.powerlanguage.co.uk/wordle/)です！
 
-## Introduction
-Wordle is a word game similar to the TV show [Lingo](https://en.wikipedia.org/wiki/Lingo_(British_game_show)).
+[**ここ**](https://skytomo221.github.io/waadoru/)からプレイできます。
 
-You get 6 tries to guess a 5-letter target word. After each guess, the letters light up in various colors as clues. Green means a letter is correct in this spot; yellow means a letter is _elsewhere_ in the target word; gray means a letter is not in the target word at all.
+## せつめい
 
-Click _About_ inside the game to learn by example.
+Wordleは、テレビ番組[Lingo](https://en.wikipedia.org/wiki/Lingo_(British_game_show))に似たワードゲームです。
 
-## History
-In 2021, Josh "powerlanguage" Wardle created _Wordle_, a version of the Lingo word game that you can play once a day. The target word is the same for everyone each day, and you can share results to Twitter and compare with your friends. This made Wordle [go absolutely viral](https://www.nytimes.com/2022/01/03/technology/wordle-word-game-creator.html) around January 2022.
+5文字の単語を6回以内に当てます。答えた後に毎回、文字が手がかりとしてさまざまな色で点灯します。緑は、この場所で文字が正しいことを意味します。黄色は、文字がお題の単語の _他の場所_ にあることを意味します。灰色は、文字がお題の単語にまったく含まれていないことを意味します。
 
-I liked this game a lot, but wanted to play more than once a day, so I created my own version of it, where the words are random but you can play as much as like. I called it _hello wordl_, which is a sort of [bad programming joke](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program).
+日本語版Wordle「わーどる」は、日本語にローカライズするためにこれらにいくつかのルールを追加しました。詳しくは、ゲーム内の _遊び方_ をクリックします。
 
-## But playing once a day is the point!
-Don't get me wrong: I, too, think this is the most brilliant aspect of Wordle, and I don't aim to dethrone or improve on the "real" game.
+## れきし
 
-## My word contained two of the same letter!
-This can happen in Wordle too, and I give clues exactly the same way Wordle does. I think the game would be too easy if I got rid of double letters, so I won't.
+2021年、Josh "powerlanguage" Wardleは、1日1回プレイできるLingoワードゲームのバージョンである _Wordle_ を作成しました。目標の単語は毎日誰もが同じで、結果をTwitterで共有したり、友達と比較したりできます。これにより、Wordleは2022年1月頃に[とても話題になりました](https://www.nytimes.com/2022/01/03/technology/wordle-word-game-creator.html)。
 
-## Where are the words coming from?
-To generate target words, I have been manually curating the top 25,000 or so entries of [Peter Norvig's English word frequency list](http://norvig.com/mayzner.html) to get rid of obscure words, plurals, conjugated verbs, inappropriate language, and British spellings (sorry). If you get dealt a strange target word, please open an issue on this here GitHub repository.
+フォーク元のLynnさんはこのゲームが大好きでしたが、1日に2回以上プレイしたかったので、単語がランダムでありながら好きなだけプレイできる独自のバージョンを作成しました。Lynnさんはそれを _hello wordl_ と呼びました。これは一種の[悪いプログラミングジョーク](https://en.wikipedia.org/wiki/%22Hello,_World!%22_program)です。
 
-To check guesses, I use some variation of the _Official Tournament and Club Word List_ used in North American Scrabble tournaments. (I'm not a native English speaker, but my English tends mostly American.)
+私はこれをフォークして日本語版を作りました。本家を忠実に再現したWordleはすでに存在しましたが、6回以内にひらがなで答えるゲームが作りたかったので、ルールを追加して、日本語でもいい塩梅でプレイできるように改良しました。「わーどる」はそのまま _Wordl_ を日本語にしました。なぜなら、どちらも適切にスワップ（`.replace(/(.*)(.)(.)$/, '$1$3$2')`）すれば「わーるど（ _World_ ）」になるからです。
+
+## しかし、1日1回プレイすることがポイントです！
+
+誤解しないでください。私も、これがWordleの最も優れた側面だと思います。また、「本物の」ゲームを廃止したり、改善したりすることは目指していません。
+
+## 本家に忠実なルールで遊びたいです！
+
+ひらがなで本家に忠実なルールで遊びたい場合は
+[WORDLE ja](https://aseruneko.github.io/WORDLEja/)、
+ローマ字で本家に忠実なルールで遊びたい場合は
+[Wordle-jp](https://wordle-jp.netlify.app/)をプレイしてください。
+
+## 私の言葉には同じ文字が2つ含まれていました！
+
+これは本家Wordleでも発生する可能性があり、本家Wordleとまったく同じ方法で手がかりを与えます。二つの同じ文字をなくすとゲームが楽になりすぎると思うので、やめます。
+
+## 単語はどこから来ていますか？
+
+お題の単語は[JMdict-EDICT Dictionary Project](http://www.edrdg.org/wiki/index.php/JMdict-EDICT_Dictionary_Project)から取得しています。
+これらの単語は[skytomo221/japanese-common-words](https://github.com/skytomo221/japanese-common-words)から簡単に取得できます。
+
+推測を確認するために、[MeCab](https://github.com/taku910/mecab)に同封されている[IPAdic](https://github.com/taku910/mecab/tree/master/mecab-ipadic)と[mecab-ipadic-NEologd](https://github.com/neologd/mecab-ipadic-neologd)を使用しています。
+
+お題の単語は、名詞、形容詞及び動詞が含まれています。
+外来語も含まれています。
+固有名詞や代名詞、副詞は基本的に含まれていませんが、たまに含まれていることがあるのでご了承ください。
+活用語は、すべて終止形です。
