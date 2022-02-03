@@ -134,7 +134,7 @@ table.Game-rows > tbody {
 }
 
 .letter-correct-consonant-and-elsewhere {
-  border: 2px dotted rgba(0, 0, 0, 0.3);
+  border: 2px dotted rgb(87, 172, 120);
   background: linear-gradient(
     135deg,
     rgb(87, 172, 120) 0%,
@@ -146,7 +146,7 @@ table.Game-rows > tbody {
 }
 
 .letter-correct-vowel-and-elsewhere {
-  border: 2px dotted rgba(0, 0, 0, 0.3);
+  border: 2px dotted rgb(87, 172, 120);
   background: linear-gradient(
     135deg,
     #e9c601 0%,
@@ -424,6 +424,11 @@ th.border-none {
     #f5793a 50%,
     #f5793a 100%
   );
+}
+
+.App-container.color-blind .letter-correct-consonant-and-elsewhere,
+.App-container.color-blind .letter-correct-vowel-and-elsewhere {
+  border: 2px dotted #f5793a;
 }
 
 .App-container.color-blind .letter-correct-consonant,
