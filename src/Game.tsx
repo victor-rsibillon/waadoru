@@ -108,6 +108,7 @@ function Game(props: GameProps) {
     return challenge || randomTarget(wordLength);
   });
   const [candidates, setCandidates] = useState(Array.from(dictionarySet));
+  const [shift, setShift] = useState<boolean>(false);
   const tableRef = useRef<HTMLTableElement>(null);
   const startNextGame = () => {
     if (challenge) {
@@ -182,6 +183,7 @@ function Game(props: GameProps) {
       });
       tableRef.current?.focus();
       setHint("");
+      if (shift) setShift(false);
     } else if (key === "゛") {
       const letter = currentGuess.slice(-1);
       const mark = "\u{3099}";
@@ -191,6 +193,7 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) =>
         (guess.slice(0, -1) + key).slice(0, wordLength)
       );
+      if (shift) setShift(false);
     } else if (key === "゜") {
       const letter = currentGuess.slice(-1);
       const mark = "\u{309A}";
@@ -200,6 +203,7 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) =>
         (guess.slice(0, -1) + key).slice(0, wordLength)
       );
+      if (shift) setShift(false);
     } else if (key === "大/小") {
       const letter = currentGuess.slice(-1);
       const key = isKogaki(letter) ? toSeion(letter) : toKogaki(letter);
@@ -207,12 +211,15 @@ function Game(props: GameProps) {
         (guess.slice(0, -1) + key).slice(0, wordLength)
       );
       setHint("");
-    } else if (key === "長音" || key === "-") {
+    } else if (key === "長音" || key === "-" || key === "ー") {
       setCurrentGuess((guess) => (guess + "ー").slice(0, wordLength));
       setHint("");
+      if (shift) setShift(false);
     } else if (key === "Backspace") {
       setCurrentGuess((guess) => guess.slice(0, -1));
       setHint("");
+    } else if (key === "Shift" || key === "☆") {
+      setShift(!shift);
     } else if (key === "確定" || key === "Enter") {
       if (currentGuess.length !== wordLength) {
         setHint("短すぎます");
@@ -378,6 +385,7 @@ function Game(props: GameProps) {
             return c[length <= maxLength ? length : length - 1];
           })}
         onKey={onKey}
+        shift={props.keyboardLayout.split("|").length === 2 && shift}
       />
       {gameState !== GameState.Playing && (
         <p>

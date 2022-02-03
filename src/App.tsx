@@ -176,8 +176,20 @@ function App() {
               value={keyboard}
               onChange={(e) => setKeyboard(e.target.value)}
             >
-              <option value="わらやまはなたさかあ-ゐり　みひにちしきい-　るゆむふぬつすくう-ゑれ　めへねてせけえ-をろよもほのとそこお-Bん゛゜LーE">
+              <option value="わらやまはなたさかあ-ゐり　みひにちしきい-　るゆむふぬつすくう-ゑれ　めへねてせけえ-をろよもほのとそこお-Bん゛゜L長E">
                 50音配列
+              </option>
+              <option value="ぬふあうえおやゆよわほへ-たていすかんなにらせ゛゜-ちとしはきくまのりれけむ-つさそひこみもねるめろ-BL長E">
+                JISかな
+              </option>
+              <option value="。かたこさらちくつ，ー-うしてけせはときいん-゜．ひすふへめそねほ・゜-SB゛E|ぁえりゃれよにるまぇー-をあなゅもみおのょっ-゜ぅーろやぃぬゆむわぉ゜-SB゛E">
+                親指シフト
+              </option>
+              <option value="そけせてょつんのをりち-はかしとたくうい゛きな-すこにさあっる、。れ-SBLES|ぁ゜ほふめひえみやぬ「-ぃへらゅよまおもわゆ」-ぅぇぉねゃむろ・ー　-SBLES">
+                新JIS配列
+              </option>
+              <option value="そこしてょつんいのりち-はか☆とたくう☆゛きれ-すけになさっる、。゜-BE|ぁひほふめぬえみやぇ「-ぃをらあよまおもわゆ」-ぅへせゅゃむろねーぉ-BE">
+                月配列
               </option>
               <option value="qwertyuiop-asdfghjkl-BzxcvbnmE">QWERTY</option>
               <option value="azertyuiop-qsdfghjklm-BwxcvbnE">AZERTY</option>

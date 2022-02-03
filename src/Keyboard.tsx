@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Clue, clueClass, CluedLetter } from "./clue";
 import { toConsonant, toSeion, toVowel } from "./util";
 
@@ -6,15 +7,24 @@ interface KeyboardProps {
   letterInfo: Map<string, Clue>;
   guesses: CluedLetter[];
   onKey: (key: string) => void;
+  shift: boolean;
 }
 
 export function Keyboard(props: KeyboardProps) {
   const keyboard = props.layout
-    .split("-")
+    .split("|")
+    [props.shift ? 1 : 0].split("-")
     .map((row) =>
       row
         .split("")
-        .map((key) => key.replace("B", "Backspace").replace("E", "確定").replace("L", "大/小").replace("ー", "長音"))
+        .map((key) =>
+          key
+            .replace("B", "Backspace")
+            .replace("E", "確定")
+            .replace("L", "大/小")
+            .replace("S", "Shift")
+            .replace("長", "長音")
+        )
     );
 
   return (
@@ -66,7 +76,7 @@ export function Keyboard(props: KeyboardProps) {
                   props.onKey(label);
                 }}
               >
-                {label.replace("Backspace", "⌫")}
+                {label.replace("Backspace", "⌫").replace("Shift", "⇧")}
               </div>
             );
           })}
