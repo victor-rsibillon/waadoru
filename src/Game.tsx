@@ -4,6 +4,7 @@ import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targetList from "./targets.json";
 import {
+  describeSeed,
   dictionarySet,
   Difficulty,
   isKogaki,
@@ -31,6 +32,8 @@ interface GameProps {
   maxGuesses: number;
   hidden: boolean;
   difficulty: Difficulty;
+  colorBlind: boolean;
+  keyboardLayout: string;
 }
 
 const targets = targetList;
@@ -70,6 +73,20 @@ if (initChallenge && !dictionarySet.has(initChallenge)) {
   challengeError = true;
 }
 
+function parseUrlLength(): number {
+  const lengthParam = urlParam("length");
+  if (!lengthParam) return 5;
+  const length = Number(lengthParam);
+  return length >= minLength && length <= maxLength ? length : 5;
+}
+
+function parseUrlGameNumber(): number {
+  const gameParam = urlParam("game");
+  if (!gameParam) return 1;
+  const gameNumber = Number(gameParam);
+  return gameNumber >= 1 && gameNumber <= 1000 ? gameNumber : 1;
+}
+
 function Game(props: GameProps) {
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
@@ -81,10 +98,13 @@ function Game(props: GameProps) {
   );
   const [challenge, setChallenge] = useState<string>(initChallenge);
   const [wordLength, setWordLength] = useState(
-    challenge ? challenge.length : 5
+    challenge ? challenge.length : parseUrlLength()
   );
+  const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   const [target, setTarget] = useState(() => {
     resetRng();
+    // Skip RNG ahead to the parsed initial game number:
+    for (let i = 1; i < gameNumber; i++) randomTarget(wordLength);
     return challenge || randomTarget(wordLength);
   });
   const [gameNumber, setGameNumber] = useState(1);
@@ -97,12 +117,12 @@ function Game(props: GameProps) {
     }
     setChallenge("");
     const newWordLength =
-      wordLength < minWordLength || wordLength > maxWordLength ? 5 : wordLength;
+      wordLength >= minLength && wordLength <= maxLength ? wordLength : 5;
     setWordLength(newWordLength);
     setTarget(randomTarget(newWordLength));
+    setHint("");
     setGuesses([]);
     setCurrentGuess("");
-    setHint("");
     setGameState(GameState.Playing);
     setGameNumber((x) => x + 1);
     setCandidates(
@@ -295,8 +315,8 @@ function Game(props: GameProps) {
         <label htmlFor="wordLength">単語の文字数：</label>
         <input
           type="range"
-          min={minWordLength}
-          max={maxWordLength}
+          min={minLength}
+          max={maxLength}
           id="wordLength"
           disabled={
             gameState === GameState.Playing &&
@@ -363,6 +383,9 @@ function Game(props: GameProps) {
         <p>
           <button
             onClick={() => {
+              const emoji = props.colorBlind
+                ? ["⬛", "🟦", "🟧"]
+                : ["⬛", "🟨", "🟩"];
               share(
                 getChallengeUrl(target),
                 "共有リンクをクリップボードにコピーしました！"

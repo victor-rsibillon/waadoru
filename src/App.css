@@ -26,6 +26,19 @@ body {
   text-transform: uppercase;
   font-weight: bold;
 }
+.Row-letter-color {
+  margin: 2px;
+  border: 2px solid rgba(128, 128, 128, 0.8);
+  flex: 1;
+  max-width: 40px;
+  height: 40px;
+  font-size: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 
 .Row-annotation {
   margin-inline-start: 16px;
@@ -183,6 +196,7 @@ table.Game-rows > tbody {
 body.dark {
   background-color: #404040;
   color: #e0e0e0;
+  color-scheme: dark;
 }
 
 body.dark .Game-keyboard-button {
@@ -325,7 +339,7 @@ th.border-none {
 }
 
 .Game-seed-info {
-  opacity: 0.5;
+  opacity: 0.7;
   margin-top: 1em;
   font-variant-numeric: tabular-nums;
 }
@@ -363,6 +377,7 @@ th.border-none {
 
 .Settings-setting label {
   margin-inline-start: 8px;
+  margin-inline-end: 8px;
 }
 
 .top-right {
@@ -372,10 +387,24 @@ th.border-none {
 }
 
 .emoji-link {
-  font-size: 150%;
+  font-size: 24px;
   text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
-.top-right a + a {
+.top-right > * + * {
   margin-inline-start: 8px;
+}
+
+.App-container.color-blind .letter-correct,
+.App-container.color-blind .App-about b.green-bg {
+  background-color: #f5793a;
+}
+
+.App-container.color-blind .letter-elsewhere,
+.App-container.color-blind .App-about b.yellow-bg {
+  background-color: #85c0f9;
 }

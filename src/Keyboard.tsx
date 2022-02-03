@@ -2,20 +2,20 @@ import { Clue, clueClass, CluedLetter } from "./clue";
 import { toConsonant, toSeion, toVowel } from "./util";
 
 interface KeyboardProps {
+  layout: string;
   letterInfo: Map<string, Clue>;
   guesses: CluedLetter[];
   onKey: (key: string) => void;
 }
 
 export function Keyboard(props: KeyboardProps) {
-  const keyboard = [
-    "わ ら や ま は な た さ か あ".split(" "),
-    "ゐ り 　 み ひ に ち し き い".split(" "),
-    "　 る ゆ む ふ ぬ つ す く う".split(" "),
-    "ゑ れ 　 め へ ね て せ け え".split(" "),
-    "を ろ よ も ほ の と そ こ お".split(" "),
-    "ん ゛ ゜ 大/小 長音 Backspace 確定".split(" "),
-  ];
+  const keyboard = props.layout
+    .split("-")
+    .map((row) =>
+      row
+        .split("")
+        .map((key) => key.replace("B", "Backspace").replace("E", "Enter"))
+    );
 
   return (
     <div className="Game-keyboard" aria-hidden="true">
