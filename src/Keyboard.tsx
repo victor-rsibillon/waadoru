@@ -14,7 +14,7 @@ export function Keyboard(props: KeyboardProps) {
     .map((row) =>
       row
         .split("")
-        .map((key) => key.replace("B", "Backspace").replace("E", "Enter"))
+        .map((key) => key.replace("B", "Backspace").replace("E", "確定").replace("L", "大/小").replace("ー", "長音"))
     );
 
   return (

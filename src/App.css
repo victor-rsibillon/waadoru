@@ -404,7 +404,76 @@ th.border-none {
   background-color: #f5793a;
 }
 
+.App-container.color-blind .letter-correct-consonant-and-elsewhere,
+.App-container.color-blind .App-about b.green-yellow-bg  {
+  background: linear-gradient(
+    135deg,
+    #f5793a 0%,
+    #f5793a 50%,
+    #85c0f9 50%,
+    #85c0f9 100%
+  );
+}
+
+.App-container.color-blind .letter-correct-vowel-and-elsewhere,
+.App-container.color-blind .App-about b.yellow-green-bg {
+  background: linear-gradient(
+    135deg,
+    #85c0f9 0%,
+    #85c0f9 50%,
+    #f5793a 50%,
+    #f5793a 100%
+  );
+}
+
+.App-container.color-blind .letter-correct-consonant,
+.App-container.color-blind .App-about b.green-gray-bg {
+  background: linear-gradient(
+    135deg,
+    #f5793a 0%,
+    #f5793a 50%,
+    rgb(162, 162, 162) 50%,
+    rgb(162, 162, 162) 100%
+  );
+}
+
+.App-container.color-blind .letter-correct-vowel,
+.App-container.color-blind .App-about b.gray-green-bg {
+  background: linear-gradient(
+    135deg,
+    rgb(162, 162, 162) 0%,
+    rgb(162, 162, 162) 50%,
+    #f5793a 50%,
+    #f5793a 100%
+  );
+}
+
+.App-container.color-blind .letter-correct-consonant,
+.App-container.color-blind .letter-correct-vowel {
+  border: 2px solid #f5793a;
+}
+
 .App-container.color-blind .letter-elsewhere,
 .App-container.color-blind .App-about b.yellow-bg {
   background-color: #85c0f9;
+}
+
+.App-container.color-blind b.black-green-bg {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 50%,
+    #f5793a 50%,
+    #f5793a 100%
+  );
+}
+
+.App-container.color-blind b.green-black-bg {
+  background: linear-gradient(
+    135deg,
+    #f5793a 0%,
+    #f5793a 50%,
+    rgba(0, 0, 0, 0) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }

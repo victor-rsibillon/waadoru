@@ -39,7 +39,7 @@ function App() {
   const [difficulty, setDifficulty] = useSetting<number>("difficulty", 0);
   const [keyboard, setKeyboard] = useSetting<string>(
     "keyboard",
-    "qwertyuiop-asdfghjkl-BzxcvbnmE"
+    "わらやまはなたさかあ-ゐり　みひにちしきい-　るゆむふぬつすくう-ゑれ　めへねてせけえ-をろよもほのとそこお-Bん゛゜LーE"
   );
   const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
 
@@ -136,7 +136,7 @@ function App() {
               checked={colorBlind}
               onChange={() => setColorBlind((x: boolean) => !x)}
             />
-            <label htmlFor="colorblind-setting">Color blind mode</label>
+            <label htmlFor="colorblind-setting">色補正</label>
           </div>
           <div className="Settings-setting">
             <input
@@ -150,11 +150,11 @@ function App() {
             <div>
               <label htmlFor="difficulty-setting">Difficulty:</label>
               &nbsp;
-              <strong>{["Normal", "Hard", "Ultra Hard"][difficulty]}</strong>
+              <strong>{["ふつう", "はーど", "超はーど"][difficulty]}</strong>
               <div
                 style={{
                   fontSize: 14,
-                  height: 40,
+                  height: 70,
                   marginLeft: 8,
                   marginTop: 8,
                 }}
@@ -170,13 +170,16 @@ function App() {
             </div>
           </div>
           <div className="Settings-setting">
-            <label htmlFor="keyboard-setting">Keyboard layout:</label>
+            <label htmlFor="keyboard-setting">キー配列：</label>
             <select
               name="keyboard-setting"
               id="keyboard-setting"
               value={keyboard}
               onChange={(e) => setKeyboard(e.target.value)}
             >
+              <option value="わらやまはなたさかあ-ゐり　みひにちしきい-　るゆむふぬつすくう-ゑれ　めへねてせけえ-をろよもほのとそこお-Bん゛゜LーE">
+                50音配列
+              </option>
               <option value="qwertyuiop-asdfghjkl-BzxcvbnmE">QWERTY</option>
               <option value="azertyuiop-qsdfghjklm-BwxcvbnE">AZERTY</option>
               <option value="qwertzuiop-asdfghjkl-ByxcvbnmE">QWERTZ</option>
@@ -190,7 +193,7 @@ function App() {
               checked={enterLeft}
               onChange={() => setEnterLeft((x: boolean) => !x)}
             />
-            <label htmlFor="enter-left-setting">"Enter" on left side</label>
+            <label htmlFor="enter-left-setting">「確定」を左配置にする</label>
           </div>
         </div>
       )}

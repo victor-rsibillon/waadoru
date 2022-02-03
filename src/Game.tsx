@@ -37,8 +37,8 @@ interface GameProps {
 }
 
 const targets = targetList;
-const minWordLength = 3;
-const maxWordLength = 10;
+const minLength = 3;
+const maxLength = 10;
 
 function randomTarget(wordLength: number): string {
   const eligible = targets.filter((word) => word.length === wordLength);
@@ -107,7 +107,6 @@ function Game(props: GameProps) {
     for (let i = 1; i < gameNumber; i++) randomTarget(wordLength);
     return challenge || randomTarget(wordLength);
   });
-  const [gameNumber, setGameNumber] = useState(1);
   const [candidates, setCandidates] = useState(Array.from(dictionarySet));
   const tableRef = useRef<HTMLTableElement>(null);
   const startNextGame = () => {
@@ -370,12 +369,13 @@ function Game(props: GameProps) {
         {hint || `\u00a0`}
       </p>
       <Keyboard
+        layout={props.keyboardLayout}
         letterInfo={letterInfo}
         guesses={guesses
           .map((g) => clue(g, target))
           .map((c) => {
             const length = currentGuess.replace(/\w/g, "").length;
-            return c[length <= maxWordLength ? length : length - 1];
+            return c[length <= maxLength ? length : length - 1];
           })}
         onKey={onKey}
       />
