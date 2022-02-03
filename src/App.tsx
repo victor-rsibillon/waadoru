@@ -148,8 +148,7 @@ function App() {
               onChange={(e) => setDifficulty(+e.target.value)}
             />
             <div>
-              <label htmlFor="difficulty-setting">Difficulty:</label>
-              &nbsp;
+              <label htmlFor="difficulty-setting">難易度：</label>
               <strong>{["ふつう", "はーど", "超はーど"][difficulty]}</strong>
               <div
                 style={{
