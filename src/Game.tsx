@@ -4,7 +4,6 @@ import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
 import targetList from "./targets.json";
 import {
-  describeSeed,
   dictionarySet,
   Difficulty,
   isKogaki,
@@ -296,6 +295,45 @@ function Game(props: GameProps) {
           const old = letterInfo.get(letter);
           if (old === undefined || clue > old) {
             letterInfo.set(letter, clue);
+            if (!(letter in ["っ", "ー"])) {
+              const romaji = toRomaji(letter);
+              const consonants = romaji.slice(0, -1);
+              const vowel = romaji.slice(-1);
+              const oldCheckAndSet = (letter: string, clue: Clue) => {
+                const old = letterInfo.get(letter);
+                if (old === undefined || clue > old)
+                  letterInfo.set(letter, clue);
+              };
+              if (clue === Clue.Correct) {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, clue);
+                oldCheckAndSet(vowel, clue);
+              } else if (clue === Clue.Almost) {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, Clue.Absent);
+                oldCheckAndSet(vowel, Clue.Correct);
+              } else if (clue === Clue.CorrectConsonantAndElsewhere) {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, Clue.Correct);
+                oldCheckAndSet(vowel, Clue.Elsewhere);
+              } else if (clue === Clue.CorrectVowelAndElsewhere) {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, Clue.Elsewhere);
+                oldCheckAndSet(vowel, Clue.Correct);
+              } else if (clue === Clue.CorrectConsonant) {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, Clue.Correct);
+                oldCheckAndSet(vowel, Clue.Absent);
+              } else if (clue === Clue.CorrectVowel) {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, Clue.Absent);
+                oldCheckAndSet(vowel, Clue.Correct);
+              } else {
+                for (const consonant of consonants)
+                  oldCheckAndSet(consonant, clue);
+                oldCheckAndSet(vowel, clue);
+              }
+            }
           }
         }
       }

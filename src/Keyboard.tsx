@@ -42,6 +42,7 @@ export function Keyboard(props: KeyboardProps) {
               label !== "大/小" &&
               label !== "Backspace" &&
               label !== "確定" &&
+              /[^A-Za-z]/.test(label) &&
               props.guesses.some(
                 (c) =>
                   c !== undefined &&
