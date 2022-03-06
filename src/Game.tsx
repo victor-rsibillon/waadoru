@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Row, RowState } from "./Row";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
-import targetList from "./targets.json";
+import targetList from "./targets_P_news.json";
 import {
   dictionarySet,
   Difficulty,
