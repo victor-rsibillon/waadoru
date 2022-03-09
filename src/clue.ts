@@ -87,21 +87,21 @@ export function clueClass(clue: Clue): string {
 
 export function clueWord(clue: Clue): string {
   if (clue === Clue.Absent) {
-    return "不在";
+    return "Absent";
   } else if (clue === Clue.Elsewhere) {
-    return "場所違い";
+    return "Elsewhere";
   } else if (clue === Clue.CorrectVowel) {
-    return "母音一致";
+    return "Correct vowel";
   } else if (clue === Clue.CorrectConsonant) {
-    return "子音一致";
+    return "Correct consonant";
   } else if (clue === Clue.CorrectVowelAndElsewhere) {
-    return "場所違い＆母音一致";
+    return "Correct vowel and elsewhere";
   } else if (clue === Clue.CorrectConsonantAndElsewhere) {
-    return "場所違い＆子音一致";
+    return "Correct consonant and elsewhere";
   } else if (clue === Clue.Almost) {
-    return "濁点・半濁点・小書き";
+    return "Other diacritic mark or different size";
   } else {
-    return "正解";
+    return "Correct";
   }
 }
 
@@ -136,18 +136,18 @@ export function violation(
 
     // Hard: enforce greens stay in place.
     if (clue === Clue.Correct && guess[i] !== letter) {
-      return nth + "文字目は「" + glyph + "」でなければなりません";
+      return "Kana #" + nth + " must be「" + glyph + "」!";
     }
 
     // Hard: enforce yellows are used.
     if (guessCount < clueCount) {
-      const atLeastN = clueCount > 1 ? `少なくとも${clueCount}つの` : "";
-      return `推測には${atLeastN}「${glyph}」が含まれている必要があります`;
+      const atLeastN = clueCount > 1 ? `at least ${clueCount} ` : "";
+      return `You must use ${atLeastN}「${glyph}」!`;
     }
 
     // Ultra Hard: disallow would-be greens.
     if (ultra && clue !== Clue.Correct && guess[i] === letter) {
-      return `${nth}文字目は「${glyph}」ではありません`;
+      return `Kana #${nth} can't be「${glyph}」!`;
     }
 
     // Ultra Hard: if the exact amount is known because of an Absent clue, enforce it.
@@ -159,8 +159,8 @@ export function violation(
       guessCount !== clueCount
     ) {
       return clueCount === 0
-        ? `${glyph}を含めることはできません`
-        : `推測には正確に${clueCount}つの「${glyph}」が含まれている必要があります`;
+        ? `${glyph} can't be there!`
+        : `Must include ${clueCount}「${glyph}」!`;
     }
 
     if (
@@ -177,10 +177,10 @@ export function violation(
           toKogaki(glyph),
         ])
       ).map((g) => `「${g}」`);
-      const which = glyphs.length === 2 ? "どちら" : "どれ";
-      return `${nth}文字目は${glyphs.join(
+      const which = glyphs.length === 2 ? "one of those two" : "one of these";
+      return `Kana #${nth} must include ${which}: ${glyphs.join(
         ""
-      )}の${which}かが含まれている必要があります`;
+      )}`;
     }
 
     if (
@@ -189,7 +189,7 @@ export function violation(
         clue === Clue.CorrectConsonantAndElsewhere) &&
       toConsonant(guess[i]) !== toConsonant(letter)
     ) {
-      return `${nth}文字目は${toConsonant(glyph)}行です`;
+      return `Kana #${nth} is in the ${toConsonant(glyph)} column`;
     }
 
     if (
@@ -197,7 +197,7 @@ export function violation(
       (clue === Clue.CorrectVowel || clue === Clue.CorrectVowelAndElsewhere) &&
       toVowel(guess[i]) !== toVowel(letter)
     ) {
-      return `${nth}文字目は${toVowel(glyph)}段です`;
+      return `Kana #${nth} is in the ${toVowel(glyph)} row`;
     }
 
     if (
@@ -205,7 +205,7 @@ export function violation(
       clue === Clue.Absent &&
       toConsonant(guess[i]) === toConsonant(letter)
     ) {
-      return `${nth}文字目は${toConsonant(glyph)}行ではありません`;
+      return `Kana #${nth} is NOT in the ${toConsonant(glyph)} column`;
     }
 
     if (
@@ -213,7 +213,7 @@ export function violation(
       clue === Clue.Absent &&
       toVowel(guess[i]) === toVowel(letter)
     ) {
-      return `${nth}文字目は${toVowel(glyph)}段ではありません`;
+      return `Kana #${nth} is NOT in the ${toVowel(glyph)} row`;
     }
 
     ++i;

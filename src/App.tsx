@@ -160,9 +160,9 @@ function App() {
               >
                 {
                   [
-                    `辞書に載っている有効な単語を推測してください。`,
-                    `Wordleの"Hard Mode"です。緑色の文字は固定したままにし、黄色の文字は再利用する必要があります。`,
-                    `ハードモードよりさらに厳しいモードです。黄色の文字は前回と違う場所に移動させる必要があり、紫色の文字や、半分緑色になっている文字、灰色の文字からわかることにも従う必要があります。`,
+                    `Just find the word, no pressure :)`,
+                    `When you get green or yellow markers, you must use them in your next guesses!`,
+                    `Even harder! Yellow marked kana must change position in your next guess, and you must strictly follow the rules for any half-green marked kana you found.`,
                   ][difficulty]
                 }
               </div>
