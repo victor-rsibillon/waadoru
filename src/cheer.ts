@@ -51,6 +51,6 @@ export function cheer(
   });
   setDictionary(candidates);
   return candidates.length === 1
-    ? `あと少しです！頑張ってください！良いニュースがあります。この時点で単語は一意に定まります。つまり、あなたが一つでも推測に当てはまる単語を思いつけば、あなたの勝ちです！`
-    : `頑張ってください！辞書によると${candidates.length}個の候補があります`;
+    ? `Almost there! There is only one possible word left!`
+    : `Only ${candidates.length} possibilities left in the dictionary`;
 }

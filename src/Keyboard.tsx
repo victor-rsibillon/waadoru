@@ -20,7 +20,7 @@ export function Keyboard(props: KeyboardProps) {
         .map((key) =>
           key
             .replace("B", "Backspace")
-            .replace("E", "確定")
+            .replace("E", "Enter") //"確定")
             .replace("L", "大/小")
             .replace("S", "Shift")
             .replace("長", "長音")

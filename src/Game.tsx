@@ -74,9 +74,9 @@ if (initChallenge && !dictionarySet.has(initChallenge)) {
 
 function parseUrlLength(): number {
   const lengthParam = urlParam("length");
-  if (!lengthParam) return 5;
+  if (!lengthParam) return 4;
   const length = Number(lengthParam);
-  return length >= minLength && length <= maxLength ? length : 5;
+  return length >= minLength && length <= maxLength ? length : 4;
 }
 
 function parseUrlGameNumber(): number {
@@ -92,8 +92,8 @@ function Game(props: GameProps) {
   const [currentGuess, setCurrentGuess] = useState<string>("");
   const [hint, setHint] = useState<string>(
     challengeError
-      ? `招待リンクが無効です。ランダムモードをプレイします。`
-      : `あなたの推測を入力してください！`
+      ? `Invalid invite link. Playing with a random word.`
+      : `Enter your guess!`
   );
   const [challenge, setChallenge] = useState<string>(initChallenge);
   const [wordLength, setWordLength] = useState(
@@ -221,20 +221,20 @@ function Game(props: GameProps) {
       setShift(!shift);
     } else if (key === "確定" || key === "Enter") {
       if (currentGuess.length !== wordLength) {
-        setHint("短すぎます");
+        setHint("Too short");
         return;
       }
       if (!dictionarySet.has(currentGuess)) {
         if (/^(.)\1+$/g.test(currentGuess)) {
           if (guesses.length === 0)
             setHint(
-              "お疲れですか？こんなゲームなんかやめて、散歩でもしましょう"
+              "Feeling tired? Please stop and take a break."
             );
           else {
             setHint(cheer(candidates, guesses, target, setCandidates));
           }
         } else {
-          setHint("有効な単語ではありません");
+          setHint("Invalid word!");
         }
         return;
       }
@@ -250,15 +250,15 @@ function Game(props: GameProps) {
       setCurrentGuess((guess) => "");
 
       const gameOver = (verbed: string) =>
-        `あなたの${verbed}！正解は「${target.toUpperCase()}」です。（確定で${
-          challenge ? "ランダムモードで遊ぶ" : "再び遊ぶ"
+        `You ${verbed}! Correct answer was「${target.toUpperCase()}」.\n (Press Enter to ${
+          challenge ? "play with a new word" : "play again"
         })`;
 
       if (currentGuess === target) {
-        setHint(gameOver("勝ち"));
+        setHint(gameOver("won!"));
         setGameState(GameState.Won);
       } else if (guesses.length + 1 === props.maxGuesses) {
-        setHint(gameOver("負け"));
+        setHint(gameOver("lost!"));
         setGameState(GameState.Lost);
       } else {
         setHint("");
@@ -356,7 +356,7 @@ function Game(props: GameProps) {
   return (
     <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
       <div className="Game-options">
-        <label htmlFor="wordLength">単語の文字数：</label>
+        <label htmlFor="wordLength">Word length: </label>
         <input
           type="range"
           min={minLength}
@@ -379,7 +379,7 @@ function Game(props: GameProps) {
             setCandidates(
               Array.from(dictionarySet).filter((word) => word.length === length)
             );
-            setHint(`${length} 文字`);
+            setHint(`${length} mora word`);
           }}
         ></input>
         <button
@@ -387,13 +387,13 @@ function Game(props: GameProps) {
           disabled={gameState !== GameState.Playing || guesses.length === 0}
           onClick={() => {
             setHint(
-              `答えは「${target.toUpperCase()}」でした。（確定で再挑戦）`
+              `The answer was「${target.toUpperCase()}」... \n(Press Enter again for a new word)`
             );
             setGameState(GameState.Lost);
             (document.activeElement as HTMLElement)?.blur();
           }}
         >
-          諦める
+          Give up
         </button>
       </div>
       <table
@@ -434,17 +434,17 @@ function Game(props: GameProps) {
                 : ["⬛", "🟨", "🟩"];
               share(
                 getChallengeUrl(target),
-                "共有リンクをクリップボードにコピーしました！"
+                "Sharing link copied to clipboard!"
               );
             }}
           >
-            この単語を友達にチャレンジさせる
+            Challenge your friends to guess this word
           </button>{" "}
           <button
             onClick={() => {
               share(
                 getChallengeUrl(target),
-                "結果をクリップボードにコピーしました！",
+                "Results copied to the clipboard!",
                 "Wordle 🇯🇵 わーどる（Waadoru）",
                 guesses
                   .map((guess) =>
@@ -461,7 +461,7 @@ function Game(props: GameProps) {
               );
             }}
           >
-            絵文字で結果をシェアする
+            Share the results
           </button>
         </p>
       )}
@@ -469,7 +469,7 @@ function Game(props: GameProps) {
         <div className="Game-seed-info">playing a challenge game</div>
       ) : seed ? (
         <div className="Game-seed-info">
-          シード値：{seed}，単語の長さ：{wordLength}，ゲーム番号：{gameNumber}
+          Seed：{seed}，word length：{wordLength}，game number：{gameNumber}
         </div>
       ) : undefined}
     </div>

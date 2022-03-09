@@ -97,11 +97,11 @@ function App() {
       </h1>
       <div className="top-right">
         {page !== "game" ? (
-          link("❌", "閉じる", "game")
+          link("❌", "Close", "game")
         ) : (
           <>
-            {link("❓", "遊び方", "about")}
-            {link("⚙️", "設定", "settings")}
+            {link("❓", "How to play", "about")}
+            {link("⚙️", "Settings", "settings")}
           </>
         )}
       </div>
@@ -114,7 +114,7 @@ function App() {
         }}
       >
         <a href={seed ? "?random" : "?seed=" + todaySeed}>
-          {seed ? "ランダム" : "今日のお題"}
+          {seed ? "Random" : "Today's word"}
         </a>
       </div>
       {page === "about" && <About />}
@@ -127,7 +127,7 @@ function App() {
               checked={dark}
               onChange={() => setDark((x: boolean) => !x)}
             />
-            <label htmlFor="dark-setting">ダークテーマ</label>
+            <label htmlFor="dark-setting">Dark mode</label>
           </div>
           <div className="Settings-setting">
             <input
@@ -136,7 +136,7 @@ function App() {
               checked={colorBlind}
               onChange={() => setColorBlind((x: boolean) => !x)}
             />
-            <label htmlFor="colorblind-setting">色補正</label>
+            <label htmlFor="colorblind-setting">Colorblind</label>
           </div>
           <div className="Settings-setting">
             <input
@@ -148,8 +148,8 @@ function App() {
               onChange={(e) => setDifficulty(+e.target.value)}
             />
             <div>
-              <label htmlFor="difficulty-setting">難易度：</label>
-              <strong>{["ふつう", "はーど", "超はーど"][difficulty]}</strong>
+              <label htmlFor="difficulty-setting">Difficulty：</label>
+              <strong>{["Normal", "Hard", "Very Hard"][difficulty]}</strong>
               <div
                 style={{
                   fontSize: 14,
@@ -169,7 +169,7 @@ function App() {
             </div>
           </div>
           <div className="Settings-setting">
-            <label htmlFor="keyboard-setting">キー配列：</label>
+            <label htmlFor="keyboard-setting">Keyboard</label>
             <select
               name="keyboard-setting"
               id="keyboard-setting"
