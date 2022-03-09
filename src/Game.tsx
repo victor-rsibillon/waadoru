@@ -37,7 +37,7 @@ interface GameProps {
 
 const targets = targetList;
 const minLength = 3;
-const maxLength = 10;
+const maxLength = 8;
 
 function randomTarget(wordLength: number): string {
   const eligible = targets.filter((word) => word.length === wordLength);
@@ -379,7 +379,7 @@ function Game(props: GameProps) {
             setCandidates(
               Array.from(dictionarySet).filter((word) => word.length === length)
             );
-            setHint(`${length} mora word`);
+            setHint(`${length} kana word`);
           }}
         ></input>
         <button
