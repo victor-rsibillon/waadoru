@@ -107,7 +107,7 @@ export function toConsonant(letter: string): string {
     まみむめも: "ま",
     やゆよゃゅょ: "や",
     らりるれろ: "ら",
-    わゐゑを: "わ",
+    わを: "わ",
     がぎぐげご: "が",
     ざじずぜぞ: "ざ",
     だぢづでど: "だ",
@@ -122,9 +122,9 @@ export function toVowel(letter: string): string {
   const seionLetter = toSeion(letter);
   for (let [key, value] of Object.entries({
     あかさたなはまやらわ: "あ",
-    いきしちにひみりゐ: "い",
+    いきしちにひみり: "い",
     うくすつぬふむゆる: "う",
-    えけせてねへめれゑ: "え",
+    えけせてねへめれ: "え",
     おこそとのほもよろを: "お",
   }))
     if (key.includes(seionLetter)) return value;

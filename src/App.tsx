@@ -39,7 +39,7 @@ function App() {
   const [difficulty, setDifficulty] = useSetting<number>("difficulty", 0);
   const [keyboard, setKeyboard] = useSetting<string>(
     "keyboard",
-    "わらやまはなたさかあ-ゐり　みひにちしきい-　るゆむふぬつすくう-ゑれ　めへねてせけえ-をろよもほのとそこお-Bん゛゜LーE"
+    "わらやまはなたさかあ-　り　みひにちしきい-　るゆむふぬつすくう-　れ　めへねてせけえ-をろよもほのとそこお-Bん゛゜LーE"
   );
   const [enterLeft, setEnterLeft] = useSetting<boolean>("enter-left", false);
 
