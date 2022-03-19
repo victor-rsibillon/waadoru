@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { Row, RowState } from "./Row";
 import { Clue, clue, describeClue, violation } from "./clue";
 import { Keyboard } from "./Keyboard";
-import targetList from "./targets_netflix_95.json";
+import targetListN5 from "./targets_N5.json";
+import targetListN4 from "./targets_N4.json";
+import targetListN3 from "./targets_N3.json";
+import targetListN2 from "./targets_N2.json";
+import targetListN1 from "./targets_N1.json";
+import targetListNetflix from "./targets_netflix_95.json";
 import {
   dictionarySet,
   Difficulty,
@@ -16,6 +21,7 @@ import {
   toKogaki,
   toSeion,
   urlParam,
+  vocabLevelNames,
 } from "./util";
 import { decode, encode } from "./base64";
 import { toRomaji } from "wanakana";
@@ -35,12 +41,15 @@ interface GameProps {
   keyboardLayout: string;
 }
 
-const targets = targetList;
+const targets = [targetListN5, targetListN4, targetListN3, targetListN2, targetListN1, targetListNetflix];
+// const targets = targetList;
 const minLength = 3;
 const maxLength = 8;
+const minVocabLevel = 1;
+const maxVocabLevel = 5;
 
-function randomTarget(wordLength: number): string {
-  const eligible = targets.filter((word) => word.length === wordLength);
+function randomTarget(wordLength: number, vocabLevel: number): string {
+  const eligible = targets[vocabLevel].filter((word) => word.length === wordLength);
   let candidate: string;
   do {
     candidate = pick(eligible);
@@ -79,6 +88,13 @@ function parseUrlLength(): number {
   return length >= minLength && length <= maxLength ? length : 4;
 }
 
+function parseUrlVocabLevel(): number {
+  const vocabLevelParam = urlParam("vocablvl");
+  if (!vocabLevelParam) return minVocabLevel;
+  const vocabLevel = Number(vocabLevelParam);
+  return vocabLevel >= minVocabLevel && vocabLevel <= maxVocabLevel ? vocabLevel : minVocabLevel;
+}
+
 function parseUrlGameNumber(): number {
   const gameParam = urlParam("game");
   if (!gameParam) return 1;
@@ -99,12 +115,13 @@ function Game(props: GameProps) {
   const [wordLength, setWordLength] = useState(
     challenge ? challenge.length : parseUrlLength()
   );
+  const [vocabLevel, setVocabLevel] = useState(parseUrlVocabLevel());
   const [gameNumber, setGameNumber] = useState(parseUrlGameNumber());
   const [target, setTarget] = useState(() => {
     resetRng();
     // Skip RNG ahead to the parsed initial game number:
-    for (let i = 1; i < gameNumber; i++) randomTarget(wordLength);
-    return challenge || randomTarget(wordLength);
+    for (let i = 1; i < gameNumber; i++) randomTarget(wordLength, vocabLevel);
+    return challenge || randomTarget(wordLength, vocabLevel);
   });
   const [candidates, setCandidates] = useState(Array.from(dictionarySet));
   const [shift, setShift] = useState<boolean>(false);
@@ -118,7 +135,7 @@ function Game(props: GameProps) {
     const newWordLength =
       wordLength >= minLength && wordLength <= maxLength ? wordLength : 5;
     setWordLength(newWordLength);
-    setTarget(randomTarget(newWordLength));
+    setTarget(randomTarget(newWordLength, vocabLevel));
     setHint("");
     setGuesses([]);
     setCurrentGuess("");
@@ -356,6 +373,40 @@ function Game(props: GameProps) {
   return (
     <div className="Game" style={{ display: props.hidden ? "none" : "block" }}>
       <div className="Game-options">
+
+        <label htmlFor="vocabLevel">Vocab level: </label>
+        <select
+          name="vocab-level"
+          id="vocab-level"
+          value={vocabLevel}
+          disabled={
+            gameState === GameState.Playing &&
+            (guesses.length > 0 || currentGuess !== "" || challenge !== "")
+          }
+          onChange={(e) => {
+            const newVocabLevel = parseInt(e.target.value)
+            setVocabLevel(newVocabLevel)
+            resetRng();
+            setGameNumber(1);
+            setGameState(GameState.Playing);
+            setGuesses([]);
+            setCurrentGuess("");
+            setTarget(randomTarget(wordLength, newVocabLevel));
+            setWordLength(wordLength);
+            setCandidates(
+              Array.from(dictionarySet).filter((word) => word.length === wordLength)
+            );
+            setHint(`${wordLength} kana word (vocab level: ${vocabLevelNames[newVocabLevel]})`);
+          }}
+        >
+          <option value="0">JLPT N5 words</option>
+          <option value="1">JLPT N4 words</option>
+          <option value="2">JLPT N3 words</option>
+          <option value="3">JLPT N2 words</option>
+          <option value="4">JLPT N1 words</option>
+          <option value="5">95% most frequent words on Netflix</option>
+        </select>
+
         <label htmlFor="wordLength">Word length: </label>
         <input
           type="range"
@@ -374,12 +425,12 @@ function Game(props: GameProps) {
             setGameState(GameState.Playing);
             setGuesses([]);
             setCurrentGuess("");
-            setTarget(randomTarget(length));
+            setTarget(randomTarget(length, vocabLevel));
             setWordLength(length);
             setCandidates(
               Array.from(dictionarySet).filter((word) => word.length === length)
             );
-            setHint(`${length} kana word`);
+            setHint(`${length} kana word (vocab level: ${vocabLevelNames[vocabLevel]})`);
           }}
         ></input>
         <button

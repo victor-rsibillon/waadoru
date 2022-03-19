@@ -1,6 +1,8 @@
 import { toHiragana } from "wanakana";
 import dictionary from "./dictionary.json";
 
+export const vocabLevelNames = ["N5", "N4", "N3", "N2", "N1", "Netflix 95%"];
+
 export enum Difficulty {
   Normal,
   Hard,

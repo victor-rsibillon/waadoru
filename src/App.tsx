@@ -1,5 +1,5 @@
 import "./App.css";
-import { maxGuesses, seed, urlParam } from "./util";
+import { maxGuesses, seed, urlParam, vocabLevelNames } from "./util";
 import Game from "./Game";
 import { useEffect, useState } from "react";
 import { About } from "./About";
@@ -37,6 +37,7 @@ function App() {
   const [dark, setDark] = useSetting<boolean>("dark", prefersDark);
   const [colorBlind, setColorBlind] = useSetting<boolean>("colorblind", false);
   const [difficulty, setDifficulty] = useSetting<number>("difficulty", 0);
+  
   const [keyboard, setKeyboard] = useSetting<string>(
     "keyboard",
     "わらやまはなたさかあ-　り　みひにちしきい-　るゆむふぬつすくう-　れ　めへねてせけえ-をろよもほのとそこお-Bん゛゜LーE"
@@ -168,6 +169,7 @@ function App() {
               </div>
             </div>
           </div>
+
           <div className="Settings-setting">
             <label htmlFor="keyboard-setting">Keyboard</label>
             <select
