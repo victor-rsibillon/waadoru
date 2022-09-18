@@ -190,12 +190,18 @@ function Game(props: GameProps) {
     }
     if (/^[a-zあ-ん]$/i.test(key)) {
       setCurrentGuess((guess) => {
-        const newGuess = guess + key.toLowerCase();
-        return (
+        let newGuess = guess + key.toLowerCase();
+        newGuess = (
           !/n$/i.test(guess) && key.toLowerCase() === "n"
             ? newGuess
             : toHiraganaKeepLongVowelMark(newGuess.replace("nn", "n"))
-        ).slice(0, wordLength);
+        )
+        // Limit the lenght of the guess, unless there are romaji at the end
+        // (i.e. the user is not done typing a kana).
+        if (! /[a-zA]$/i.test(guess)) {
+          newGuess = newGuess.slice(0, wordLength);
+        }
+        return newGuess
       });
       tableRef.current?.focus();
       setHint("");
