@@ -23,7 +23,7 @@ export function Keyboard(props: KeyboardProps) {
             .replace("E", "Enter") //"確定")
             .replace("L", "大/小")
             .replace("S", "Shift")
-            .replace("長", "長音")
+            .replace("長", "ー") // 長音")
         )
     );
 
@@ -41,7 +41,7 @@ export function Keyboard(props: KeyboardProps) {
               label !== "゜" &&
               label !== "大/小" &&
               label !== "Backspace" &&
-              label !== "確定" &&
+              label !== "Enter" &&
               /[^A-Za-z]/.test(label) &&
               props.guesses.some(
                 (c) =>
