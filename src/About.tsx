@@ -177,6 +177,7 @@ export function About() {
       </p>
       <hr />
       <Row
+          romajiMode={false}
         rowState={RowState.LockedIn}
         wordLength={7}
         cluedLetters={[

@@ -89,6 +89,10 @@ table.Game-rows > tbody {
   flex-direction: column;
 }
 
+.Game-keyboard-RomajiToggle {
+  margin-top: 2rem;
+}
+
 .Game-keyboard-row {
   display: flex;
   flex-direction: row;

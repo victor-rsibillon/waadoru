@@ -49,7 +49,7 @@ const minVocabLevel = 1;
 const maxVocabLevel = 5;
 
 function randomTarget(wordLength: number, vocabLevel: number): string {
-  const eligible = targets[vocabLevel].filter((word) => word.length === wordLength);
+  const eligible = targets[vocabLevel].filter((word) => word.length === wordLength && !/[ア-ン]/i.test(word));
   let candidate: string;
   do {
     candidate = pick(eligible);
@@ -103,6 +103,8 @@ function parseUrlGameNumber(): number {
 }
 
 function Game(props: GameProps) {
+  const [romajiMode, setRomajiMode] = useState(false);
+
   const [gameState, setGameState] = useState(GameState.Playing);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState<string>("");
@@ -363,6 +365,7 @@ function Game(props: GameProps) {
       return (
         <Row
           key={i}
+          romajiMode={romajiMode}
           wordLength={wordLength}
           rowState={
             lockedIn
@@ -472,6 +475,8 @@ function Game(props: GameProps) {
       </p>
       <Keyboard
         layout={props.keyboardLayout}
+        romajiMode={romajiMode}
+        updateRomajiMode={(newState: boolean) => {setRomajiMode(newState)}}
         letterInfo={letterInfo}
         guesses={guesses
           .map((g) => clue(g, target))
